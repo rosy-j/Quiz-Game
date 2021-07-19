@@ -11,8 +11,8 @@ the game by defeating the final boss.</p>
   The application will present the user with descriptions about different scenarios in the game, and the user will be 
   able to make choices by typing in commands. For example, the application will tell the user that they found a stick, 
   and the user will be able to pick it up by typing in *pick it up*. 
-- **Who will use it?**
-  <p>This application will be used by people who wish to play a simple game to pass the time.</p>
-- **Why is this project of interest to you?**
-  <p>This project interests me because I have always enjoyed playing video games, so I wanted to try to make one.</p>
+- **Who will use it?** <br>
+  This application will be used by people who wish to play a simple game to pass the time.
+- **Why is this project of interest to you?** <br>
+  This project interests me because I have always enjoyed playing video games, so I wanted to try to make one.
 
