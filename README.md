@@ -7,11 +7,10 @@ to go and venture outside of the town into the surrounding forest. In this fores
 can interact with, or monsters that they can either attempt to slay or run away from. The user will be able to finish 
 the game by defeating the final boss.</p>
 
-- **What will the application do?** 
-  <p>The application will present the user with descriptions about different scenarios in the game and the user will be 
-  able to make choices by typing in commands. For example, the
-  application will tell the user that they found a stick and the user will be able to pick it up by typing in *pick it 
-  up*. <p>
+- **What will the application do?** <br>
+  The application will present the user with descriptions about different scenarios in the game, and the user will be 
+  able to make choices by typing in commands. For example, the application will tell the user that they found a stick, 
+  and the user will be able to pick it up by typing in *pick it up*. 
 - **Who will use it?**
   <p>This application will be used by people who wish to play a simple game to pass the time.</p>
 - **Why is this project of interest to you?**
