@@ -1,26 +1,25 @@
-# My Personal Project
+# My Personal Project: Quiz Game
 
 ## Project Description:
 
-<p>This application will be a text-based adventure game. The user will start off in a town. They will then be prompted
-to go and venture outside of the town into the surrounding forest. In this forest they may encounter items that they 
-can store in their inventory, or monsters that they can either attempt to slay or run away from. The user will be able 
-to finish the game by defeating the final boss.</p>
+<p>This application will be a quiz game where users can add questions to a quiz and then be able to play through the
+entire quiz.</p>
 
 - **What will the application do?** <br>
-  The application will present the user with descriptions about different scenarios in the game. The user will then be 
-  able to make choices by selecting different options. For example, the application will tell the user that they can go
-  north, east, south, or west, and the user will then be able to choose to go north by selecting *go north*. The user 
-  will also have an inventory to store items that they encounter throughout the game.
+  User's will be able to add questions with corresponding answers to a quiz. After they are done, they can then play the
+  quiz game. They will be presented with a question and be required to *enter* or *select* the correct answer. 
+  After they provide an answer, they will be informed that their answer was correct or incorrect. They will then move 
+  onto the next question.
 - **Who will use it?** <br>
-  This application will be used by people who wish to play a simple game to pass the time.
+  This application will be used by students or any other people who need a way to study for any upcoming quizzes, tests,
+  or exams.
 - **Why is this project of interest to you?** <br>
-  This project interests me because I have always enjoyed playing video games, so I wanted to try to make one.
+  This project interests me because back in high school I always enjoyed playing Kahoot (a quiz game) in class, so I 
+  wanted to try to make something similar to it. 
   
 ## User Stories
 
-- As a user, I want to be able to travel to different locations
-- As a user, I want to be able to add an item to my inventory
-- As a user, I want to be able to remove an item from my inventory
-- As a user, I want to be able to select an item and view its description
-- As a user, I want to be able to view all the items in my inventory
+- As a user, I want to be able to add a question to the quiz
+- As a user, I want to be able to remove a question from the quiz
+- As a user, I want to be able to select a question from the quiz and edit it
+- As a user, I want to be able to view all the questions in the quiz
