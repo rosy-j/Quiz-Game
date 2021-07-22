@@ -100,7 +100,7 @@ public class QuizApp {
             System.out.println("A: View a question in detail\nB: Go Back");
             input = userInput.nextLine();
             if (input.equals("A")) {
-                System.out.println("Enter question to view in detail:");
+                viewQuestion();
             } else if (input.equals("B")) {
                 runApp();
             } else {
@@ -142,9 +142,31 @@ public class QuizApp {
     //          Question: question
     //          Correct Answer: answer
     //          Incorrect Answers: answer, answer, answer
-    public void viewQuestion(MCQuestion question) {
+    public void viewQuestion() {
+        System.out.println("Enter question to view in detail:");
+        input = userInput.nextLine();
+        for (int i = 0; i < quiz.length(); i++) {
+            MCQuestion q = quiz.getQuestions().get(i);
+            if (input.equals(q.getQuestion())) {
+                System.out.println("Question: " + q.getQuestion());
+                System.out.println("Correct Answer: " + q.getCorrectAnswer());
+                System.out.println("Incorrect Answers: " + q.getWrongAnswer1()  + ", " + q.getWrongAnswer2() + ", "
+                                + q.getWrongAnswer3());
 
-
+                System.out.println("Please Select:");
+                System.out.println("A: View another question\nB: Go Back");
+                input = userInput.nextLine();
+                if (input.equals("A")) {
+                    viewAllQuestions();
+                    viewQuestion();
+                } else if (input.equals("B")) {
+                    runApp();
+                }
+            } else if (i == quiz.length() - 1) {
+                System.out.println("Couldn't find question");
+                viewQuestion();
+            }
+        }
     }
 
     // REQUIRES: quiz must have at least one question

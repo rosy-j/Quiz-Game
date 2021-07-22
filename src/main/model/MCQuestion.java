@@ -40,6 +40,7 @@ public class MCQuestion {
     public String getQuestion() {
         return this.question;
     }
+    
     public String getCorrectAnswer() {
         return this.correctAnswer;
     }
