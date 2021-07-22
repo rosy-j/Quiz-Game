@@ -21,21 +21,21 @@ public class QuizTest {
 
         testQuestion1 = new MCQuestion("Why is Gamora?");
         testQuestion1.setCorrectAnswer("I don't know");
-        testQuestion1.setWrongAnswer1("Who knows");
+        testQuestion1.setWrongAnswer1("Potato");
         testQuestion1.setWrongAnswer2("Yes");
         testQuestion1.setWrongAnswer3("No");
 
-        testQuestion2 = new MCQuestion(("What is the rarest M&M colour?"));
-        testQuestion2.setCorrectAnswer("I don't know");
-        testQuestion2.setWrongAnswer1("Who knows");
-        testQuestion2.setWrongAnswer2("Yes");
-        testQuestion2.setWrongAnswer3("No");
+        testQuestion2 = new MCQuestion(("What is the capital city of Spain?"));
+        testQuestion2.setCorrectAnswer("Madrid");
+        testQuestion2.setWrongAnswer1("Toronto");
+        testQuestion2.setWrongAnswer2("Las Vegas");
+        testQuestion2.setWrongAnswer3("Antarctica");
 
-        testQuestion3 = new MCQuestion("Who invented ice cream?");
-        testQuestion3.setCorrectAnswer("I don't know");
-        testQuestion3.setWrongAnswer1("Who knows");
-        testQuestion3.setWrongAnswer2("Yes");
-        testQuestion3.setWrongAnswer3("No");
+        testQuestion3 = new MCQuestion("How much does the Chewbacca costume weigh?");
+        testQuestion3.setCorrectAnswer("Eight pounds");
+        testQuestion3.setWrongAnswer1("Fifty pounds");
+        testQuestion3.setWrongAnswer2("Five pounds");
+        testQuestion3.setWrongAnswer3("Two pounds");
     }
 
     @Test
@@ -161,10 +161,14 @@ public class QuizTest {
         assertFalse(testQuiz.isInQuiz(testQuestion2));
     }
 
-    //TODO: view one quiz question
-    //TODO: view many quiz questions
-
-    //TODO: viewAllQuestions
+    @Test
+    public void testGetQuestions() {
+        addThreeQuestions(testQuestion1, testQuestion2, testQuestion3);
+        assertEquals(3, testQuiz.getQuestions().size());
+        assertTrue(testQuiz.getQuestions().contains(testQuestion1));
+        assertTrue(testQuiz.getQuestions().contains(testQuestion2));
+        assertTrue(testQuiz.getQuestions().contains(testQuestion3));
+    }
 
     // helper method to add three questions to quiz
     private void addThreeQuestions(MCQuestion question1, MCQuestion question2, MCQuestion question3) {
@@ -172,5 +176,7 @@ public class QuizTest {
         testQuiz.addQuestion(question2);
         testQuiz.addQuestion(question3);
     }
+
+
 
 }
