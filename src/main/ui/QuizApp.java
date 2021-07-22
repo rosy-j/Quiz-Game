@@ -14,6 +14,7 @@ public class QuizApp {
     private boolean runQuiz; //TODO: keep here or move somewhere else?
     private boolean runQuizApp; //TODO: keep here or move somewhere else?
     private boolean hasMadeQuiz;
+    private String input;
     private MCQuestion question;
     private Quiz quiz;
     private Scanner userInput;
@@ -22,32 +23,33 @@ public class QuizApp {
     public QuizApp() {
         userInput = new Scanner(System.in);
         runQuizApp = true;
-        runQuiz = false;
+        runQuiz = false; // TODO: do i even need this?
         hasMadeQuiz = false;
         runApp();
     }
 
     // EFFECTS: runs startup menu and prompts user to make a selection
     public void runApp() {
-        displayStartUpMenu();
-        int input = userInput.nextInt();
-        switch (input) {
-            case 0:
-                startQuiz();
-                break;
-            case 1:
-                makeNewQuiz();
-                break;
-            case 2:
-                viewQuiz();
-            case 3:
-                endProgram();
-                break;
-            default:
-                System.out.println("Please enter a valid input");
-                runApp();
+        while (runQuizApp) {
+            displayStartUpMenu();
+            input = userInput.nextLine();
+            switch (input) {
+                case "A":
+                    startQuiz();
+                    break;
+                case "B":
+                    makeNewQuiz();
+                    break;
+                case "C":
+                    viewQuiz();
+                case "D":
+                    endProgram();
+                    break;
+                default:
+                    System.out.println("Please enter a valid input");
+                    runApp();
+            }
         }
-
     }
 
     // MODIFIES: this
@@ -55,16 +57,15 @@ public class QuizApp {
     public void makeNewQuiz() {
         boolean isMakingQuiz = true;
         System.out.println("Please enter a name for your quiz:");
-        String name = userInput.next();
-        quiz = new Quiz(name);
+        quiz = new Quiz(userInput.nextLine());
         makeQuestion();
         while (isMakingQuiz) {
             System.out.println("Please select:");
-            System.out.println("0: Add another question\n1: Go back to menu");
-            if (userInput.nextInt() == 0) {
+            System.out.println("A: Add another question\nB: Go back to menu");
+            input = userInput.nextLine();
+            if (input.equals("A")) {
                 makeQuestion();
-                quiz.addQuestion(question);
-            } else if (userInput.nextInt() == 1) {
+            } else if (input.equals("B")) {
                 isMakingQuiz = false;
                 hasMadeQuiz = true;
                 runApp();
@@ -72,34 +73,54 @@ public class QuizApp {
                 System.out.println("Please enter a valid input");
             }
         }
-
     }
 
+    // MODIFIES: this
     // EFFECTS: makes a new question and prompts user to enter question and answers
     public void makeQuestion() {
         System.out.println("Please enter your question:");
-        question = new MCQuestion(userInput.next());
+        question = new MCQuestion(userInput.nextLine());
         System.out.println("Please enter the correct answer:");
-        question.setCorrectAnswer(userInput.next());
+        question.setCorrectAnswer(userInput.nextLine());
         System.out.println("Please enter an incorrect answer:");
-        question.setWrongAnswer1(userInput.next());
+        question.setWrongAnswer1(userInput.nextLine());
         System.out.println("Please enter an incorrect answer:");
-        question.setWrongAnswer2(userInput.next());
+        question.setWrongAnswer2(userInput.nextLine());
         System.out.println("Please enter an incorrect answer:");
-        question.setWrongAnswer3(userInput.next());
+        question.setWrongAnswer3(userInput.nextLine());
+        quiz.addQuestion(question);
     }
 
     public void viewQuiz() {
-
+        if (hasMadeQuiz == false) {
+            System.out.println("Please make a quiz first");
+            runApp();
+        } else {
+            viewAllQuestions();
+            System.out.println("A: View a question in detail\nB: Go Back");
+            input = userInput.nextLine();
+            if (input.equals("A")) {
+                System.out.println("Enter question to view in detail:");
+            } else if (input.equals("B")) {
+                runApp();
+            } else {
+                System.out.println("Please enter a valid input");
+                viewQuiz();
+            }
+        }
     }
 
+    // TODO: add specifications
     public void endProgram() {
+        System.out.println("Goodbye");
+        runQuizApp = false;
 
     }
 
     public void startQuiz() {
         if (hasMadeQuiz == false) {
             System.out.println("Please make a quiz first");
+            runApp();
         } else {
             // TODO: make it select a variation of different arrangements of question
         }
@@ -108,10 +129,10 @@ public class QuizApp {
 
     public void displayStartUpMenu() {
         System.out.println("Please select:");
-        System.out.println("0: Start quiz");
-        System.out.println("1: Make new quiz");
-        System.out.println("2: View quiz");
-        System.out.println("3: Quit");
+        System.out.println("A: Start quiz");
+        System.out.println("B: Make new quiz");
+        System.out.println("C: View quiz");
+        System.out.println("D: Quit");
     }
 
 
@@ -123,11 +144,15 @@ public class QuizApp {
     //          Incorrect Answers: answer, answer, answer
     public void viewQuestion(MCQuestion question) {
 
+
     }
 
     // REQUIRES: quiz must have at least one question
     // EFFECTS: prints each multiple choice question's question
     public void viewAllQuestions() {
+        for (MCQuestion q : quiz.getQuestions()) {
+            System.out.println(q.getQuestion());
+        }
     }
 
 }
