@@ -5,16 +5,17 @@ import model.MCQuestion;
 import model.Quiz;
 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
  * Represents a quiz application
  */
 
 public class QuizApp {
-    private boolean runQuiz; //TODO: keep here or move somewhere else?
-    private boolean runQuizApp; //TODO: keep here or move somewhere else?
+    private boolean runQuizApp;
     private boolean hasMadeQuiz;
     private String input;
+    private int numCorrect;
     private MCQuestion question;
     private Quiz quiz;
     private Scanner userInput;
@@ -23,7 +24,6 @@ public class QuizApp {
     public QuizApp() {
         userInput = new Scanner(System.in);
         runQuizApp = true;
-        runQuiz = false; // TODO: do i even need this?
         hasMadeQuiz = false;
         runApp();
     }
@@ -54,27 +54,26 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: makes a new quiz and prompts user to input questions and answers
+    // EFFECTS: makes a new quiz and prompts user to input questions and answers, changes hasMadeQuiz to true
     public void makeNewQuiz() {
         System.out.println("Please enter a name for your quiz:");
         quiz = new Quiz(userInput.nextLine());
+        hasMadeQuiz = true;
         makeQuestion();
-        displayMakeQuizMenu();
     }
 
     // EFFECTS: displays menu and allows user to choose to add another question to quiz, or go back to menu
-    public void displayMakeQuizMenu() {
+    public void displayAddQuestionMenu() {
         System.out.println("Please select:");
         System.out.println("A: Add another question\nB: Go back to menu");
         input = userInput.nextLine();
         if (input.equals("A")) {
             makeQuestion();
         } else if (input.equals("B")) {
-            hasMadeQuiz = true;
             runApp();
         } else {
             System.out.println("Please enter a valid input");
-            displayMakeQuizMenu();
+            displayAddQuestionMenu();
         }
     }
 
@@ -93,6 +92,7 @@ public class QuizApp {
         System.out.println("Please enter an incorrect answer:");
         question.setWrongAnswer3(userInput.nextLine());
         quiz.addQuestion(question);
+        displayAddQuestionMenu();
     }
 
     // EFFECTS: Presents user with all the quiz questions,
@@ -124,21 +124,21 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: allows user to either remove a question, edit a question, or go back to viewing quiz
+    // EFFECTS: allows user to either remove a question, edit a question, or go back to main menu
     private void editQuiz() {
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Please select:");
-        System.out.println("A: Edit a question\nB: Remove a question\nC: Go Back");
+        System.out.println("A: Remove a question\nB: Add a question\nC: Go Back");
         input = userInput.nextLine();
         switch (input) {
             case "A":
-                editQuestion();
-                break;
-            case "B":
                 doRemoveQuestion();
                 break;
+            case "B":
+                makeQuestion();
+                break;
             case "C":
-                viewQuiz();
+                runApp();
                 break;
             default:
                 System.out.println("Please enter a valid input");
@@ -187,8 +187,6 @@ public class QuizApp {
         }
     }
 
-    private void editQuestion() {
-    }
 
     // EFFECTS: displays "Quitting application" and ends the program
     public void endProgram() {
@@ -199,13 +197,150 @@ public class QuizApp {
 
     // EFFECTS: starts the quiz //TODO: add a better specification
     public void startQuiz() {
+        numCorrect = 0;
         if (!hasMadeQuiz) {
             System.out.println("Please make a quiz first");
             runApp();
         } else {
-            // TODO: make it select a variation of different arrangements of question
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println("Quiz: " + quiz.getQuizName());
+            for (MCQuestion question : quiz.getQuestions()) {
+                getRandomQuestionConfig(question);
+            }
+            displayFinishedQuizMenu();
         }
+    }
 
+    // EFFECTS: displays the menu after finishing a quiz
+    //          and allows user to choose to replay quiz or return to main menu
+    public void displayFinishedQuizMenu() {
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("Congratulations, you finished the quiz!");
+        System.out.println("Your score is: " + numCorrect + "/" + quiz.length());
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("Please select: ");
+        System.out.println("A: Restart Quiz\nB: Go Back To Menu");
+        input = userInput.nextLine();
+        if (input.equals("A")) {
+            startQuiz();
+        } else if (input.equals("B")) {
+            runApp();
+        } else {
+            System.out.println("Please enter a valid input");
+        }
+    }
+
+    // EFFECTS: displays a question then displays its answers in a random order
+    public void getRandomQuestionConfig(MCQuestion question) {
+        System.out.println("Question: " + question.getQuestion());
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
+        switch (randomNum) {
+            case 1:
+                runQuizQuestionV1(question);
+                break;
+            case 2:
+                runQuizQuestionV2(question);
+                break;
+            case 3:
+                runQuizQuestionV3(question);
+                break;
+            case 4:
+                runQuizQuestionV4(question);
+                break;
+        }
+    }
+
+
+    public void runQuizQuestionV1(MCQuestion question) {
+        System.out.println("Please select: ");
+        System.out.println("A: " + question.getCorrectAnswer());
+        System.out.println("B: " + question.getWrongAnswer1());
+        System.out.println("C: " + question.getWrongAnswer2());
+        System.out.println("D: " + question.getWrongAnswer3());
+        input = userInput.nextLine();
+        switch (input) {
+            case "A":
+                System.out.println("Correct!");
+                numCorrect++;
+                break;
+            case "B":
+            case "C":
+            case "D":
+                System.out.println("Incorrect. The right answer is: " + question.getCorrectAnswer());
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                break;
+        }
+    }
+
+    public void runQuizQuestionV2(MCQuestion question) {
+        System.out.println("Please select: ");
+        System.out.println("A: " + question.getWrongAnswer3());
+        System.out.println("B: " + question.getCorrectAnswer());
+        System.out.println("C: " + question.getWrongAnswer1());
+        System.out.println("D: " + question.getWrongAnswer2());
+        input = userInput.nextLine();
+        switch (input) {
+            case "B":
+                System.out.println("Correct!");
+                numCorrect++;
+                break;
+            case "A":
+            case "C":
+            case "D":
+                System.out.println("Incorrect. The right answer is: " + question.getCorrectAnswer());
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                break;
+        }
+    }
+
+    public void runQuizQuestionV3(MCQuestion question) {
+        System.out.println("Please select: ");
+        System.out.println("A: " + question.getWrongAnswer2());
+        System.out.println("B: " + question.getWrongAnswer1());
+        System.out.println("C: " + question.getCorrectAnswer());
+        System.out.println("D: " + question.getWrongAnswer3());
+        input = userInput.nextLine();
+        switch (input) {
+            case "C":
+                System.out.println("Correct!");
+                numCorrect++;
+                break;
+            case "A":
+            case "B":
+            case "D":
+                System.out.println("Incorrect. The right answer is: " + question.getCorrectAnswer());
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                break;
+        }
+    }
+
+    public void runQuizQuestionV4(MCQuestion question) {
+        System.out.println("Please select: ");
+        System.out.println("A: " + question.getWrongAnswer1());
+        System.out.println("B: " + question.getWrongAnswer3());
+        System.out.println("C: " + question.getWrongAnswer2());
+        System.out.println("D: " + question.getCorrectAnswer());
+        input = userInput.nextLine();
+        switch (input) {
+            case "D":
+                System.out.println("Correct!");
+                numCorrect++;
+                break;
+            case "A":
+            case "B":
+            case "C":
+                System.out.println("Incorrect. The right answer is: " + question.getCorrectAnswer());
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                break;
+        }
     }
 
     // EFFECTS: displays main menu of application //TODO: make this specification better?
