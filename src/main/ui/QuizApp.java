@@ -12,6 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class QuizApp {
+    private static final String lineBreak = "-------------------------------------------------------------------------";
+
     private boolean runQuizApp;
     private boolean hasMadeQuiz;
     private String input;
@@ -56,6 +58,7 @@ public class QuizApp {
     // MODIFIES: this
     // EFFECTS: makes a new quiz and prompts user to input questions and answers, changes hasMadeQuiz to true
     public void makeNewQuiz() {
+        System.out.println(lineBreak);
         System.out.println("Please enter a name for your quiz:");
         quiz = new Quiz(userInput.nextLine());
         hasMadeQuiz = true;
@@ -64,6 +67,7 @@ public class QuizApp {
 
     // EFFECTS: displays menu and allows user to choose to add another question to quiz, or go back to menu
     public void displayAddQuestionMenu() {
+        System.out.println(lineBreak);
         System.out.println("Please select:");
         System.out.println("A: Add another question\nB: Go back to menu");
         input = userInput.nextLine();
@@ -81,6 +85,7 @@ public class QuizApp {
     // MODIFIES: this
     // EFFECTS: makes a new question and prompts user to enter question and answers
     public void makeQuestion() {
+        System.out.println(lineBreak);
         System.out.println("Please enter your question:");
         question = new MCQuestion(userInput.nextLine());
         System.out.println("Please enter the correct answer:");
@@ -126,7 +131,7 @@ public class QuizApp {
     // MODIFIES: this
     // EFFECTS: allows user to either remove a question, edit a question, or go back to main menu
     private void editQuiz() {
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         System.out.println("Please select:");
         System.out.println("A: Remove a question\nB: Add a question\nC: Go Back");
         input = userInput.nextLine();
@@ -151,29 +156,35 @@ public class QuizApp {
     // EFFECTS: asks for user input and removes the specified question from quiz
     //          then allows user to choose to remove another question or go back to main menu
     private void doRemoveQuestion() {
-        System.out.println("-----------------------------------------------------------------------------------------");
-        viewAllQuestions();
-        System.out.println("Please enter the question you would like to remove");
-        input = userInput.nextLine();
-        for (int i = 0; i < quiz.length(); i++) {
-            MCQuestion q = quiz.getQuestions().get(i);
-            if (input.equals(q.getQuestion())) {
-                quiz.removeQuestion(q);
-                System.out.println("Removed: " + q.getQuestion());
-                if (quiz.length() == 0) {
-                    hasMadeQuiz = false;
+        if (quiz.length() == 0) {
+            System.out.println("There are no questions on this quiz");
+            hasMadeQuiz = false;
+            runApp();
+        } else {
+            System.out.println(lineBreak);
+            viewAllQuestions();
+            System.out.println("Please enter the question you would like to remove");
+            input = userInput.nextLine();
+            for (int i = 0; i < quiz.length(); i++) {
+                MCQuestion q = quiz.getQuestions().get(i);
+                if (input.equals(q.getQuestion())) {
+                    quiz.removeQuestion(q);
+                    System.out.println("Removed: " + q.getQuestion());
+                    if (quiz.length() == 0) {
+                        hasMadeQuiz = false;
+                    }
+                    displayRemoveQuestionMenu();
+                } else if (i == quiz.length() - 1) {
+                    System.out.println("Couldn't find question");
+                    doRemoveQuestion();
                 }
-                displayRemoveQuestionMenu();
-            } else if (i == quiz.length() - 1) {
-                System.out.println("Couldn't find question");
-                doRemoveQuestion();
             }
         }
     }
 
     // EFFECTS: displays menu that allows user to choose to remove another question or go back to main menu
     public void displayRemoveQuestionMenu() {
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         System.out.println("Please select:");
         System.out.println("A: Remove another question\nB: Go Back");
         input = userInput.nextLine();
@@ -190,8 +201,10 @@ public class QuizApp {
 
     // EFFECTS: displays "Quitting application" and ends the program
     public void endProgram() {
+        System.out.println(lineBreak);
         System.out.println("Quitting application");
         runQuizApp = false;
+        System.exit(0);
 
     }
 
@@ -202,7 +215,7 @@ public class QuizApp {
             System.out.println("Please make a quiz first");
             runApp();
         } else {
-            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println(lineBreak);
             System.out.println("Quiz: " + quiz.getQuizName());
             for (MCQuestion question : quiz.getQuestions()) {
                 getRandomQuestionConfig(question);
@@ -214,10 +227,10 @@ public class QuizApp {
     // EFFECTS: displays the menu after finishing a quiz
     //          and allows user to choose to replay quiz or return to main menu
     public void displayFinishedQuizMenu() {
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         System.out.println("Congratulations, you finished the quiz!");
         System.out.println("Your score is: " + numCorrect + "/" + quiz.length());
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         System.out.println("Please select: ");
         System.out.println("A: Restart Quiz\nB: Go Back To Menu");
         input = userInput.nextLine();
@@ -232,6 +245,7 @@ public class QuizApp {
 
     // EFFECTS: displays a question then displays its answers in a random order
     public void getRandomQuestionConfig(MCQuestion question) {
+        System.out.println(lineBreak);
         System.out.println("Question: " + question.getQuestion());
         int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
         switch (randomNum) {
@@ -270,6 +284,7 @@ public class QuizApp {
                 break;
             default:
                 System.out.println("Please enter a valid input");
+                runQuizQuestionV1(question);
                 break;
         }
     }
@@ -293,6 +308,7 @@ public class QuizApp {
                 break;
             default:
                 System.out.println("Please enter a valid input");
+                runQuizQuestionV2(question);
                 break;
         }
     }
@@ -316,6 +332,7 @@ public class QuizApp {
                 break;
             default:
                 System.out.println("Please enter a valid input");
+                runQuizQuestionV3(question);
                 break;
         }
     }
@@ -339,13 +356,14 @@ public class QuizApp {
                 break;
             default:
                 System.out.println("Please enter a valid input");
+                runQuizQuestionV4(question);
                 break;
         }
     }
 
     // EFFECTS: displays main menu of application //TODO: make this specification better?
     public void mainMenu() {
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         System.out.println("Please select:");
         System.out.println("A: Start quiz");
         System.out.println("B: Make new quiz");
@@ -361,13 +379,14 @@ public class QuizApp {
     //          Correct Answer: answer
     //          Incorrect Answers: answer, answer, answer
     public void viewQuestion() {
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(lineBreak);
         viewAllQuestions();
         System.out.println("Enter which question you would like to view in detail:");
         input = userInput.nextLine();
         for (int i = 0; i < quiz.length(); i++) {
             MCQuestion q = quiz.getQuestions().get(i);
             if (input.equals(q.getQuestion())) {
+                System.out.println(lineBreak);
                 System.out.println("Question: " + q.getQuestion());
                 System.out.println("Correct Answer: " + q.getCorrectAnswer());
                 System.out.println("Incorrect Answers: " + q.getWrongAnswer1()  + ", " + q.getWrongAnswer2() + ", "
@@ -382,6 +401,7 @@ public class QuizApp {
 
     // EFFECTS: displays the view question menu and allows user to view another question or go back to main menu
     public void displayViewQuestionMenu() {
+        System.out.println(lineBreak);
         System.out.println("Please Select:");
         System.out.println("A: View another question\nB: Go Back");
         input = userInput.nextLine();
@@ -399,6 +419,8 @@ public class QuizApp {
     // REQUIRES: quiz must have at least one question
     // EFFECTS: prints each multiple choice question's question
     public void viewAllQuestions() {
+        System.out.println(lineBreak);
+        System.out.println("Questions:");
         for (MCQuestion q : quiz.getQuestions()) {
             System.out.println(q.getQuestion());
         }
