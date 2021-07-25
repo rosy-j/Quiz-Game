@@ -1,7 +1,8 @@
 package model;
 
 /*
- * Represents a multiple choice question
+ * Represents a multiple choice question that has
+ * a question, a correct answer, and three incorrect answers
  */
 
 public class MCQuestion {
@@ -17,21 +18,22 @@ public class MCQuestion {
     }
 
     // setters
+    // REQUIRES: should not be the same as incorrect answers
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
-    //REQUIRES: cannot be the same as correct answer
+    //REQUIRES: should not be the same as correct answer
     public void setWrongAnswer1(String wrongAnswer1) {
         this.wrongAnswer1 = wrongAnswer1;
     }
 
-    // REQUIRES: cannot be the same as correct answer
+    //REQUIRES: should not be the same as correct answer
     public void setWrongAnswer2(String wrongAnswer2) {
         this.wrongAnswer2 = wrongAnswer2;
     }
 
-    // REQUIRES: cannot be the same as correct answer
+    //REQUIRES: should not be the same as correct answer
     public void setWrongAnswer3(String wrongAnswer3) {
         this.wrongAnswer3 = wrongAnswer3;
     }

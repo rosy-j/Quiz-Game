@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
- * Unit tests for Quiz
+ * Tests for Quiz
  */
 
 public class QuizTest {
@@ -66,8 +66,22 @@ public class QuizTest {
     }
 
     @Test
-    // test that adds mc questions to a non empty quiz
-    public void testAddQuestionNonEmptyQuiz() {
+    // test that adds one mc questions to a non empty quiz
+    public void testAddQuestionNonEmptyQuizAddOne() {
+        testQuiz.addQuestion(testQuestion2);
+        assertEquals(1, testQuiz.length());
+        assertTrue(testQuiz.isInQuiz(testQuestion2));
+
+        testQuiz.addQuestion(testQuestion1);
+        assertEquals(2, testQuiz.length());
+        assertTrue(testQuiz.isInQuiz(testQuestion1));
+        assertTrue(testQuiz.isInQuiz(testQuestion2));
+
+    }
+
+    @Test
+    // test that adds multiple mc questions to a non empty quiz
+    public void testAddQuestionNonEmptyQuizAddMany() {
         testQuiz.addQuestion(testQuestion2);
         assertEquals(1, testQuiz.length());
         assertTrue(testQuiz.isInQuiz(testQuestion2));

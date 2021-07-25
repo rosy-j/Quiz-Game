@@ -19,7 +19,7 @@ through the entire quiz.</p>
   
 ## User Stories
 
-- As a user, I want to be able to add a question to the quiz
-- As a user, I want to be able to remove a question from the quiz
-- As a user, I want to be able to select one question from the quiz to view its contents
-- As a user, I want to be able to view all the questions in the quiz
+- As a user, I want to be able to add a question to my quiz
+- As a user, I want to be able to remove a question from my quiz
+- As a user, I want to be able to select one question from my quiz to view its contents
+- As a user, I want to be able to view all the questions in my quiz

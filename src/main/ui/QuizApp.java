@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
- * Represents a quiz application
+ * Represents a quiz application that can make a quiz, view/edit a quiz, and run a quiz
  */
 
 public class QuizApp {
@@ -18,6 +18,7 @@ public class QuizApp {
     private String input;
     private boolean hasMadeQuiz;
     private Quiz quiz;
+    private MCQuestion question;
     private Scanner userInput;
 
     // EFFECTS: constructs a quiz application, and runs the quiz application
@@ -89,7 +90,7 @@ public class QuizApp {
     private void makeQuestion() {
         System.out.println(lineBreak);
         System.out.println("Please enter your question:");
-        MCQuestion question = new MCQuestion(userInput.nextLine());
+        question = new MCQuestion(userInput.nextLine());
         System.out.println("Please enter the correct answer:");
         question.setCorrectAnswer(userInput.nextLine());
         System.out.println("Please enter an incorrect answer:");
@@ -103,12 +104,13 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: Presents user with all the quiz questions,
-    //          allows user to choose to view a question in detail, edit the quiz, or go back to main menu
+    // EFFECTS: if user has not made a quiz, prompts user to make quiz
+    //          otherwise, presents user with all the quiz questions,
+    //          then allows user to choose to view a question in detail, edit the quiz, or go back to main menu
     private void viewQuiz() {
         if (!hasMadeQuiz) {
             System.out.println("Please make a quiz first");
-            runQuiz();
+            makeNewQuiz();
         } else {
             viewAllQuestions();
             System.out.println("A: View a question in detail\nB: Edit Quiz\nC: Go Back");
@@ -156,7 +158,8 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: asks for user input and removes the specified question from quiz if it is found
+    // EFFECTS: if quiz does not have questions, prompts user to make quiz
+    //          otherwise asks for user input and removes the specified question from quiz if it is found
     //          if the question is not found, go back to the edit quiz menu
     private void doRemoveQuestion() {
         if (quiz.length() == 0) {
@@ -219,13 +222,13 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: if a quiz has been made, start the quiz
-    //          otherwise, prompt user to make a quiz first
+    // EFFECTS: if a quiz has not been made, prompt user to make quiz first
+    //          otherwise, start the quiz
     private void startQuiz() {
         numCorrect = 0;
         if (!hasMadeQuiz) {
             System.out.println("Please make a quiz first");
-            runQuiz();
+            makeNewQuiz();
         } else {
             System.out.println(lineBreak);
             System.out.println("Quiz: " + quiz.getQuizName());
@@ -404,11 +407,13 @@ public class QuizApp {
 
     // REQUIRES: quiz must have at least one multiple choice question
     // MODIFIES: this
-    // EFFECTS: returns the multiple choice question's question, its correct answer,
+    // EFFECTS: prompts user to choose a question to view
+    //          if the question is found, displays the multiple choice question's question, its correct answer,
     //          and its incorrect answers in the format
     //          Question: question
     //          Correct Answer: answer
     //          Incorrect Answers: answer, answer, answer
+    //          if it is not found, inform the user that the question could not be found and go back to view quiz
     private void viewQuestion() {
         System.out.println(lineBreak);
         viewAllQuestions();

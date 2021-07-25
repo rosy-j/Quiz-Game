@@ -1,6 +1,6 @@
 package model;
 /*
- * Unit tests for MCQuestion
+ * Tests for MCQuestion
  */
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +17,13 @@ public class MCQuestionTest {
     }
 
     @Test
-    public void testMCQuestionConstructor() {
+    public void testMCQuestion() {
         assertEquals("What is the meaning of life?", testQuestion.getQuestion());
         MCQuestion testQuesion2 = new MCQuestion("What colour is the moon?");
         assertEquals("What colour is the moon?", testQuesion2.getQuestion());
     }
+
+    // tests for getters and setters
 
     @Test
     public void testSetCorrectAnswer() {
