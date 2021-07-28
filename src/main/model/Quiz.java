@@ -1,14 +1,21 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /*
  * Represents a quiz that contains multiple choice questions
+ *
+ * toJson() and questionsToJson() are modelled after JsonSerializationDemo.
+ * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
-public class Quiz {
+public class Quiz implements Writable {
     private String quizName;
     private List<MCQuestion> questions;
 
@@ -60,4 +67,21 @@ public class Quiz {
         }
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("quizName", quizName);
+        json.put("questions", questionsToJson());
+        return json;
+    }
+
+    public JSONArray questionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (MCQuestion q : questions) {
+            jsonArray.put(q.toJson());
+        }
+
+        return jsonArray;
+    }
 }

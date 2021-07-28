@@ -1,11 +1,17 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * Represents a multiple choice question that has
  * a question, a correct answer, and three incorrect answers
+ *
+ * toJson() is modelled after JsonSerializationDemo.
+ * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
-public class MCQuestion {
+public class MCQuestion implements Writable {
     private String question;
     private String correctAnswer;
     private String wrongAnswer1;
@@ -60,5 +66,14 @@ public class MCQuestion {
     }
 
 
-
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("question", question);
+        json.put("correctAnswer", correctAnswer);
+        json.put("wrongAnswer1", wrongAnswer1);
+        json.put("wrongAnswer2", wrongAnswer2);
+        json.put("wrongAnswer3", wrongAnswer3);
+        return json;
+    }
 }
