@@ -1,0 +1,19 @@
+{
+          "quizName": "Existential Crisis Quiz",
+          "questions": [
+                    {
+                              "wrongAnswer3": "To sleep",
+                              "question": "Why are we here?",
+                              "correctAnswer": "Just to suffer",
+                              "wrongAnswer1": "To smile",
+                              "wrongAnswer2": "To waste money on gacha games"
+                    },
+                    {
+                              "wrongAnswer3": "cats",
+                              "question": "What is the meaning of life?",
+                              "correctAnswer": "42",
+                              "wrongAnswer1": "ice cream",
+                              "wrongAnswer2": "dogs"
+                    }
+          ]
+}

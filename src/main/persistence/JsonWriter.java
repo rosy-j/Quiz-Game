@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 /*
  * Represents a writer that writes JSON representation of quiz to file
  *
- * implemented from JsonSerializationDemo.
+ * modelled after JsonSerializationDemo.
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 

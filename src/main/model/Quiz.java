@@ -81,7 +81,6 @@ public class Quiz implements Writable {
         for (MCQuestion q : questions) {
             jsonArray.put(q.toJson());
         }
-
         return jsonArray;
     }
 }

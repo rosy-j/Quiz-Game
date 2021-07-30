@@ -1,0 +1,19 @@
+{
+    "questions": [
+        {
+            "question": "What is the meaning of life?",
+            "correctAnswer": "42",
+            "wrongAnswer1": "41",
+            "wrongAnswer2": "I don't know",
+            "wrongAnswer3": "another wrong answer"
+        },
+        {
+            "question": "Who is Gamora?",
+            "correctAnswer": "Why is Gamora?",
+            "wrongAnswer1": "A teddy bear",
+            "wrongAnswer2": "The President",
+            "wrongAnswer3": "The CEO of Amazon"
+        }
+    ],
+    "quizName": "Non empty Quiz"
+}

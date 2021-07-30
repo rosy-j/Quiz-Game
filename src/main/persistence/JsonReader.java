@@ -14,7 +14,7 @@ import org.json.*;
 /*
  * Represents a reader that reads workroom from JSON data stored in file
  *
- * implemented from JsonSerializationDemo.
+ * modelled after JsonSerializationDemo.
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
@@ -58,8 +58,8 @@ public class JsonReader {
     private void addQuestions(Quiz q, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("questions");
         for (Object json : jsonArray) {
-            JSONObject nextThingy = (JSONObject) json;
-            addMcQuestion(q, nextThingy);
+            JSONObject nextMcQuestion = (JSONObject) json;
+            addMcQuestion(q, nextMcQuestion);
         }
     }
 

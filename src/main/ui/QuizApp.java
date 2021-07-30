@@ -3,16 +3,23 @@ package ui;
 
 import model.MCQuestion;
 import model.Quiz;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
  * Represents a quiz application that can make a quiz, view/edit a quiz, and run a quiz
+ * saveQuiz and loadQuiz modelled after JsonSerializationDemo.
+ * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
 public class QuizApp {
     private static final String lineBreak = "-------------------------------------------------------------------------";
+    private static final String JSON_STORE = "./data/quiz.json";
 
     private int numCorrect;
     private String input;
@@ -20,41 +27,103 @@ public class QuizApp {
     private Quiz quiz;
     private MCQuestion question;
     private Scanner userInput;
+    private boolean runQuizApp;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     // EFFECTS: constructs a quiz application, and runs the quiz application
-    public QuizApp() {
+    public QuizApp() throws FileNotFoundException {
         userInput = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         hasMadeQuiz = false;
+        runQuizApp = true;
         runQuiz();
     }
 
     // MODIFIES: this
     // EFFECTS: displays the main menu and prompts user to make a selection
     private void runQuiz() {
-        boolean runQuizApp = true;
         while (runQuizApp) {
             displayMainMenu();
-            input = userInput.nextLine();
-            switch (input) {
-                case "A":
-                    startQuiz();
-                    break;
-                case "B":
-                    makeNewQuiz();
-                    break;
-                case "C":
-                    viewQuiz();
-                    break;
-                case "D":
-                    runQuizApp = false;
-                    endProgram();
-                    break;
-                default:
-                    System.out.println("Please enter a valid input");
-                    runQuiz();
-            }
+            chooseMenuOption();
         }
     }
+
+    // MODIFIES: this
+    // EFFECTS: allows user to choose an option on the menu
+    private void chooseMenuOption() {
+        input = userInput.nextLine();
+        switch (input) {
+            case "A":
+                startQuiz();
+                break;
+            case "B":
+                makeNewQuiz();
+                break;
+            case "C":
+                viewQuiz();
+                break;
+            case "D":
+                saveOrLoad();
+            case "E":
+                runQuizApp = false;
+                endProgram();
+                break;
+            default:
+                System.out.println("Please enter a valid input");
+                runQuiz();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: allows user to choose to save or load their quiz
+    private void saveOrLoad() {
+        System.out.println(lineBreak);
+        System.out.println("Please Select: ");
+        System.out.println("A: Save quiz\nB: Load quiz");
+        input = userInput.nextLine();
+        if (input.equals("A")) {
+            if (hasMadeQuiz) {
+                saveQuiz();
+            } else {
+                System.out.println("Please make a quiz first");
+                makeNewQuiz();
+            }
+        } else if (input.equals("B")) {
+            loadQuiz();
+        } else {
+            System.out.println("Please enter a valid input");
+        }
+        runQuiz();
+    }
+
+    // EFFECTS: saves the quiz to file
+    private void saveQuiz() {
+        System.out.println(lineBreak);
+        try {
+            jsonWriter.open();
+            jsonWriter.write(quiz);
+            jsonWriter.close();
+            System.out.println("Saved " + quiz.getQuizName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not save quiz to: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Quiz from file
+    private void loadQuiz() {
+        System.out.println(lineBreak);
+        try {
+            quiz = jsonReader.read();
+            hasMadeQuiz = true;
+            System.out.println("Loaded " + quiz.getQuizName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 
     // MODIFIES: this
     // EFFECTS: makes a new quiz and prompts user to input a name for the quiz
@@ -401,7 +470,8 @@ public class QuizApp {
         System.out.println("A: Start quiz");
         System.out.println("B: Make new quiz");
         System.out.println("C: View quiz");
-        System.out.println("D: Quit");
+        System.out.println("D: Save/Load quiz");
+        System.out.println("E: Quit");
     }
 
 
