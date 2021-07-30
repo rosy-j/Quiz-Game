@@ -1,33 +1,33 @@
 {
-    "quizName": "name for quiz",
+    "quizName": "this is the name of a quiz",
     "questions": [
         {
-            "wrongAnswer3": "wow look another one",
-            "question": "this",
-            "correctAnswer": "this is an answer",
-            "wrongAnswer1": "answer two",
-            "wrongAnswer2": "this is another answer"
+            "wrongAnswer3": "sandwich",
+            "question": "what is the meaning of life",
+            "correctAnswer": "42",
+            "wrongAnswer1": "cheese",
+            "wrongAnswer2": "baguette"
         },
         {
-            "wrongAnswer3": "water",
-            "question": "question 2",
-            "correctAnswer": "antoher answer to this question",
-            "wrongAnswer1": "baguette",
-            "wrongAnswer2": "sushi"
+            "wrongAnswer3": "brown",
+            "question": "What colour is the sky?",
+            "correctAnswer": "blue",
+            "wrongAnswer1": "gren",
+            "wrongAnswer2": "red"
         },
         {
-            "wrongAnswer3": "me",
-            "question": "Who is Gamora?",
-            "correctAnswer": "Why is Gamora?",
-            "wrongAnswer1": "this is gamora",
-            "wrongAnswer2": "you"
+            "wrongAnswer3": "it is a triangle",
+            "question": "What shape is the Earth?",
+            "correctAnswer": "it is a sphere",
+            "wrongAnswer1": "is is flat",
+            "wrongAnswer2": "it is typo"
         },
         {
-            "wrongAnswer3": "answer",
-            "question": "What is your name?",
-            "correctAnswer": "I am You",
-            "wrongAnswer1": "He is Mi",
-            "wrongAnswer2": "you mi"
+            "wrongAnswer3": "February 30",
+            "question": "What day is it today?",
+            "correctAnswer": "trick question",
+            "wrongAnswer1": "January 21st",
+            "wrongAnswer2": "Monday"
         }
     ]
 }

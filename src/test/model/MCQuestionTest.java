@@ -3,6 +3,7 @@ package model;
  * Tests for MCQuestion
  */
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -57,4 +58,17 @@ public class MCQuestionTest {
         assertEquals("Happiness", testQuestion.getWrongAnswer3());
     }
 
+    @Test
+    public void testToJson() {
+        testQuestion.setCorrectAnswer("42");
+        testQuestion.setWrongAnswer1("I don't know");
+        testQuestion.setWrongAnswer2("Cheese");
+        testQuestion.setWrongAnswer3("Flamingo");
+        JSONObject jsonTest = testQuestion.toJson();
+        assertEquals("What is the meaning of life?", jsonTest.get("question"));
+        assertEquals("42", jsonTest.get("correctAnswer"));
+        assertEquals("I don't know", jsonTest.get("wrongAnswer1"));
+        assertEquals("Cheese", jsonTest.get("wrongAnswer2"));
+        assertEquals("Flamingo", jsonTest.get("wrongAnswer3"));
+    }
 }
