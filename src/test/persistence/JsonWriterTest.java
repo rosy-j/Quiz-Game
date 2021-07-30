@@ -11,12 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /*
- * Tests for JsonReader
+ * Tests for JsonWriter
+ *
  * modelled after JsonSerializationDemo
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
 class JsonWriterTest extends JsonTest {
+
     @Test
     public void testWriterInvalidFile() {
         try {

@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import org.json.*;
 
 /*
- * Represents a reader that reads workroom from JSON data stored in file
+ * Represents a reader that reads quiz from JSON data stored in file
  *
  * modelled after JsonSerializationDemo.
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
@@ -27,7 +27,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads quiz from file and returns it;
-    // throws IOException if an error occurs reading data from file
+    //          throws IOException if an error occurs reading data from file
     public Quiz read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -66,8 +66,8 @@ public class JsonReader {
     // MODIFIES: q
     // EFFECTS: parses MCQuestion from JSON object and adds it to quiz
     private void addMcQuestion(Quiz q, JSONObject jsonObject) {
-        String name = jsonObject.getString("question");
-        MCQuestion mcQuestion = new MCQuestion(name);
+        String question = jsonObject.getString("question");
+        MCQuestion mcQuestion = new MCQuestion(question);
         mcQuestion.setCorrectAnswer(jsonObject.getString("correctAnswer"));
         mcQuestion.setWrongAnswer1(jsonObject.getString("wrongAnswer1"));
         mcQuestion.setWrongAnswer2(jsonObject.getString("wrongAnswer2"));

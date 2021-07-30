@@ -67,6 +67,7 @@ public class MCQuestion implements Writable {
 
 
     @Override
+    // EFFECTS: returns MCQuestion as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("question", question);

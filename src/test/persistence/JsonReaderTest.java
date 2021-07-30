@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * Tests for JsonReader
+ *
  * modelled after JsonSerializationDemo
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
@@ -20,7 +21,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("./data/noFile.json");
         try {
             Quiz q = reader.read();
             fail("IOException expected");

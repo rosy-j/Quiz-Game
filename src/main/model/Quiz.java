@@ -68,6 +68,7 @@ public class Quiz implements Writable {
     }
 
     @Override
+    // EFFECTS: returns quiz as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("quizName", quizName);
@@ -75,6 +76,7 @@ public class Quiz implements Writable {
         return json;
     }
 
+    // EFFECTS: returns questions in quiz as a JSON array
     public JSONArray questionsToJson() {
         JSONArray jsonArray = new JSONArray();
 

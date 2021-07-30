@@ -1,0 +1,33 @@
+{
+    "quizName": "name for quiz",
+    "questions": [
+        {
+            "wrongAnswer3": "wow look another one",
+            "question": "this",
+            "correctAnswer": "this is an answer",
+            "wrongAnswer1": "answer two",
+            "wrongAnswer2": "this is another answer"
+        },
+        {
+            "wrongAnswer3": "water",
+            "question": "question 2",
+            "correctAnswer": "antoher answer to this question",
+            "wrongAnswer1": "baguette",
+            "wrongAnswer2": "sushi"
+        },
+        {
+            "wrongAnswer3": "me",
+            "question": "Who is Gamora?",
+            "correctAnswer": "Why is Gamora?",
+            "wrongAnswer1": "this is gamora",
+            "wrongAnswer2": "you"
+        },
+        {
+            "wrongAnswer3": "answer",
+            "question": "What is your name?",
+            "correctAnswer": "I am You",
+            "wrongAnswer1": "He is Mi",
+            "wrongAnswer2": "you mi"
+        }
+    ]
+}

@@ -12,7 +12,8 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
- * Represents a quiz application that can make a quiz, view/edit a quiz, and run a quiz
+ * Represents a quiz application that can make a quiz, view/edit a quiz, save/load a quiz, and run a quiz
+ *
  * saveQuiz and loadQuiz modelled after JsonSerializationDemo.
  * Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
@@ -22,12 +23,12 @@ public class QuizApp {
     private static final String JSON_STORE = "./data/quiz.json";
 
     private int numCorrect;
-    private String input;
     private boolean hasMadeQuiz;
+    private boolean runQuizApp;
+    private String input;
     private Quiz quiz;
     private MCQuestion question;
     private Scanner userInput;
-    private boolean runQuizApp;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
 
