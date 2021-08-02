@@ -79,6 +79,7 @@ public class QuizApp {
 
     // MODIFIES: this
     // EFFECTS: allows user to choose to save or load their quiz
+    //          if user has an empty quiz, prompts user to make a quiz
     private void saveOrLoad() {
         System.out.println(lineBreak);
         System.out.println("Please Select: ");
@@ -113,7 +114,7 @@ public class QuizApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads Quiz from file
+    // EFFECTS: loads quiz from file
     private void loadQuiz() {
         System.out.println(lineBreak);
         try {

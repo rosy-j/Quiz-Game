@@ -43,11 +43,27 @@ class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    public void testReaderNonEmptyQuiz() {
-        JsonReader reader = new JsonReader("./data/testReaderNonEmptyQuiz.json");
+    // test for quiz with only one question
+    public void testReaderQuizOneQuestion() {
+        JsonReader reader = new JsonReader("./data/testReaderQuizOneQuestion.json");
         try {
             Quiz q = reader.read();
-            assertEquals("Non empty Quiz", q.getQuizName());
+            assertEquals("One Question Quiz", q.getQuizName());
+            List<MCQuestion> questions = q.getQuestions();
+            assertEquals(1, questions.size());
+            checkMcQuestion("What is the meaning of life?", questions.get(0),
+                    "42", "41", "I don't know", "another wrong answer");
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    public void testReaderMultipleQuestionQuiz() {
+        JsonReader reader = new JsonReader("./data/testReaderQuizMultipleQuestions.json");
+        try {
+            Quiz q = reader.read();
+            assertEquals("Quiz With Multiple Questions", q.getQuizName());
             List<MCQuestion> questions = q.getQuestions();
             assertEquals(2, questions.size());
             checkMcQuestion("What is the meaning of life?", questions.get(0),

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 /*
  * Writable interface
+ *
  * From JsonSerializationDemo. Link here: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 

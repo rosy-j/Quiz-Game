@@ -1,0 +1,12 @@
+{
+  "questions": [
+    {
+      "question": "What is the meaning of life?",
+      "correctAnswer": "42",
+      "wrongAnswer1": "41",
+      "wrongAnswer2": "I don't know",
+      "wrongAnswer3": "another wrong answer"
+    }
+  ],
+  "quizName": "One Question Quiz"
+}

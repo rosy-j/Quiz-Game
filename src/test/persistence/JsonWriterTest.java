@@ -50,16 +50,40 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    public void testWriterNonEmptyQuiz() {
+    // test for quiz with only one question
+    public void testWriterOneQuestionQuiz() {
         try {
-            Quiz q = new Quiz("Existential Crisis Quiz");
-            setUpQuiz(q);
-            JsonWriter writer = new JsonWriter("./data/testWriterNonEmptyQuiz.json");
+            Quiz q = new Quiz("One Question Quiz");
+            setUpOneQuestion(q);
+            JsonWriter writer = new JsonWriter("./data/testWriterOneQuestionQuiz.json");
             writer.open();
             writer.write(q);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterNonEmptyQuiz.json");
+            JsonReader reader = new JsonReader("./data/testWriterOneQuestionQuiz.json");
+            q = reader.read();
+            assertEquals("One Question Quiz", q.getQuizName());
+            List<MCQuestion> questions = q.getQuestions();
+            assertEquals(1, questions.size());
+            checkMcQuestion("Why are we here?", questions.get(0),
+                    "Just to suffer", "To smile", "To waste money on gacha games", "To sleep");
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    // test for quiz with multiple questions
+    public void testWriterQuizWithMultipleQuestions() {
+        try {
+            Quiz q = new Quiz("Existential Crisis Quiz");
+            setUpQuiz(q);
+            JsonWriter writer = new JsonWriter("./data/testWriterQuizWithMultipleQuestions.json");
+            writer.open();
+            writer.write(q);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterQuizWithMultipleQuestions.json");
             q = reader.read();
             assertEquals("Existential Crisis Quiz", q.getQuizName());
             List<MCQuestion> questions = q.getQuestions();
@@ -73,20 +97,24 @@ class JsonWriterTest extends JsonTest {
         }
     }
 
-    // helper that sets up a quiz
-    private Quiz setUpQuiz(Quiz q) {
+    // helper that sets up a quiz with one question
+    private void setUpOneQuestion(Quiz q) {
         MCQuestion question1 = new MCQuestion("Why are we here?");
         question1.setCorrectAnswer("Just to suffer");
         question1.setWrongAnswer1("To smile");
         question1.setWrongAnswer2("To waste money on gacha games");
         question1.setWrongAnswer3("To sleep");
         q.addQuestion(question1);
+    }
+
+    // helper that sets up a quiz with multiple questions
+    private void setUpQuiz(Quiz q) {
+        setUpOneQuestion(q);
         MCQuestion question2 = new MCQuestion("What is the meaning of life?");
         question2.setCorrectAnswer("42");
         question2.setWrongAnswer1("ice cream");
         question2.setWrongAnswer2("dogs");
         question2.setWrongAnswer3("cats");
         q.addQuestion(question2);
-        return q;
     }
 }
