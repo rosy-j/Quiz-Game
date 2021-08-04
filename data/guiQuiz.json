@@ -1,0 +1,10 @@
+{
+    "quizName": "m",
+    "questions": [{
+        "wrongAnswer3": "d",
+        "question": "quetion",
+        "correctAnswer": "a",
+        "wrongAnswer1": "b",
+        "wrongAnswer2": "c"
+    }]
+}
