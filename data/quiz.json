@@ -1,33 +1,19 @@
 {
-  "quizName": "this is the name of a quiz",
-  "questions": [
-    {
-      "wrongAnswer3": "sandwich",
-      "question": "what is the meaning of life",
-      "correctAnswer": "42",
-      "wrongAnswer1": "cheese",
-      "wrongAnswer2": "baguette"
-    },
-    {
-      "wrongAnswer3": "brown",
-      "question": "What colour is the sky?",
-      "correctAnswer": "blue",
-      "wrongAnswer1": "gren",
-      "wrongAnswer2": "red"
-    },
-    {
-      "wrongAnswer3": "it is a triangle",
-      "question": "What shape is the Earth?",
-      "correctAnswer": "it is a sphere",
-      "wrongAnswer1": "is is flat",
-      "wrongAnswer2": "it is typo"
-    },
-    {
-      "wrongAnswer3": "February 30",
-      "question": "What day is it today?",
-      "correctAnswer": "trick question",
-      "wrongAnswer1": "January 21st",
-      "wrongAnswer2": "Monday"
-    }
-  ]
+    "quizName": "name",
+    "questions": [
+        {
+            "wrongAnswer3": "a",
+            "question": "a",
+            "correctAnswer": "a",
+            "wrongAnswer1": "a",
+            "wrongAnswer2": "a"
+        },
+        {
+            "wrongAnswer3": "b",
+            "question": "quesiton 2",
+            "correctAnswer": "e",
+            "wrongAnswer1": "a",
+            "wrongAnswer2": "g"
+        }
+    ]
 }

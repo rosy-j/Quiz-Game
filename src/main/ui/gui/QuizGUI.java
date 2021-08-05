@@ -1,15 +1,19 @@
 package ui.gui;
 
-import jdk.nashorn.internal.scripts.JO;
 import model.MCQuestion;
 import model.Quiz;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -21,26 +25,16 @@ public class QuizGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/guiQuiz.json";
     private static final int HEIGHT = 500;
     private static final int WIDTH = 700;
-    private CardLayout layout;
-    private JPanel panel;
+
     private JPanel menuPanel;
-    private MakeQuizPanel makeQuizPanel;
-    private JPanel saveLoadPanel;
-    //TODO: delete unnecessary stuff
     private JTextField questionText;
     private JTextField correctAnswerText;
     private JTextField wrongAnswer1Text;
     private JTextField wrongAnswer2Text;
     private JTextField wrongAnswer3Text;
     private DefaultListModel defaultListModel;
-
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private String question;
-    private String correctAnswer;
-    private String wrongAnswer1;
-    private String wrongAnswer2;
-    private String wrongAnswer3;
     private Quiz quiz;
 
     public QuizGUI() {
@@ -63,10 +57,17 @@ public class QuizGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    private void viewOneQuestion(MCQuestion question) {
+        String message = "Question: " + question.getQuestion() + "\nCorrect Answer: "
+                + question.getCorrectAnswer() + "\nIncorrect Answers: " + question.getWrongAnswer1()
+                + ", " + question.getWrongAnswer2() + ", " + question.getWrongAnswer3();
+        JOptionPane.showMessageDialog(null, message);
+    }
+
     private void viewQuestionList() {
         JPanel questionListPanel = new JPanel();
-        SpringLayout springLayout = new SpringLayout();
-        questionListPanel.setLayout(springLayout);
+        questionListPanel.setBorder(new EmptyBorder(20, 10, 20, 20));
+        questionListPanel.setLayout(new BorderLayout());
         defaultListModel = new DefaultListModel();
 
         JList questionList = new JList();
@@ -74,15 +75,23 @@ public class QuizGUI extends JFrame implements ActionListener {
 
         questionList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         questionList.setLayoutOrientation(JList.VERTICAL);
-        questionList.setVisibleRowCount(5);
+
+        questionList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    int selected = questionList.getSelectedIndex();
+                    MCQuestion question = quiz.getQuestions().get(selected);
+                    viewOneQuestion(question);
+                }
+            }
+        });
 
         JLabel questionListLabel = new JLabel("Questions in quiz: ");
         JScrollPane scrollPane = new JScrollPane(questionList);
-        scrollPane.setPreferredSize(new Dimension(WIDTH / 2, HEIGHT / 3));
 
-
-        questionListPanel.add(questionListLabel);
-        questionListPanel.add(scrollPane);
+        questionListPanel.add(questionListLabel, BorderLayout.NORTH);
+        questionListPanel.add(scrollPane, BorderLayout.CENTER);
         add(questionListPanel, BorderLayout.CENTER);
     }
 
@@ -99,35 +108,36 @@ public class QuizGUI extends JFrame implements ActionListener {
 
     private void createQuestionFields() {
         JPanel questionPanel = new JPanel();
+        questionPanel.setBorder(new EmptyBorder(20, 20, 20, 10));
         questionPanel.setLayout(new BoxLayout(questionPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel question = new JLabel("Question");
-        questionPanel.add(question);
+        addLabel(questionPanel, "Question");
         questionText = new JTextField(30);
         questionPanel.add(questionText);
 
-        JLabel correctAnswer = new JLabel("Correct Answer");
-        questionPanel.add(correctAnswer);
+        addLabel(questionPanel, "Correct Answer");
         correctAnswerText = new JTextField(30);
         questionPanel.add(correctAnswerText);
 
-        JLabel wrongAnswer1 = new JLabel("Incorrect Answer 1");
-        questionPanel.add(wrongAnswer1);
+        addLabel(questionPanel, "Incorrect Answer 1");
         wrongAnswer1Text = new JTextField(30);
         questionPanel.add(wrongAnswer1Text);
 
-        JLabel wrongAnswer2 = new JLabel("Incorrect Answer 1");
-        questionPanel.add(wrongAnswer2);
+        addLabel(questionPanel, "Incorrect Answer 2");
         wrongAnswer2Text = new JTextField(30);
         questionPanel.add(wrongAnswer2Text);
 
-        JLabel wrongAnswer3 = new JLabel("Incorrect Answer 1");
-        questionPanel.add(wrongAnswer3);
+        addLabel(questionPanel, "Incorrect Answer 3");
         wrongAnswer3Text = new JTextField(30);
         questionPanel.add(wrongAnswer3Text);
 
         add(questionPanel, BorderLayout.WEST);
+    }
 
+    // helper method that adds a jLabel to the panel
+    private void addLabel(JPanel questionPanel, String labelName) {
+        JLabel label = new JLabel(labelName);
+        questionPanel.add(label);
     }
 
     private void createMenuOptions() {
@@ -166,11 +176,9 @@ public class QuizGUI extends JFrame implements ActionListener {
                 addQuestion();
                 break;
             case "Save Quiz":
-                //TODO: haven't done this one yet
                 saveQuiz();
                 break;
             case "Load Quiz":
-                //TODO: this
                 loadQuiz();
                 break;
         }
