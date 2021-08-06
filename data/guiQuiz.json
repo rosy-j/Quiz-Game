@@ -31,35 +31,7 @@
         },
         {
             "wrongAnswer3": "",
-            "question": "b",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "c",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "d",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
             "question": "e",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "f",
             "correctAnswer": "",
             "wrongAnswer1": "",
             "wrongAnswer2": ""
@@ -73,42 +45,7 @@
         },
         {
             "wrongAnswer3": "",
-            "question": "h",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "i",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "j",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
             "question": "k",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "l",
-            "correctAnswer": "",
-            "wrongAnswer1": "",
-            "wrongAnswer2": ""
-        },
-        {
-            "wrongAnswer3": "",
-            "question": "m",
             "correctAnswer": "",
             "wrongAnswer1": "",
             "wrongAnswer2": ""
@@ -119,6 +56,55 @@
             "correctAnswer": "",
             "wrongAnswer1": "",
             "wrongAnswer2": ""
+        },
+        {
+            "wrongAnswer3": "answer",
+            "question": "question ",
+            "correctAnswer": "answer",
+            "wrongAnswer1": "answer",
+            "wrongAnswer2": "anwer"
+        },
+        {
+            "wrongAnswer3": "answer",
+            "question": "question 2",
+            "correctAnswer": "answer ",
+            "wrongAnswer1": "answer",
+            "wrongAnswer2": "answer "
+        },
+        {
+            "wrongAnswer3": "spiderman",
+            "question": "who is gamora?",
+            "correctAnswer": "why is gamora?",
+            "wrongAnswer1": "i don't know",
+            "wrongAnswer2": "iron man"
+        },
+        {
+            "wrongAnswer3": "gorilla",
+            "question": "this is another question?",
+            "correctAnswer": "this is another question",
+            "wrongAnswer1": "this is an answer",
+            "wrongAnswer2": "potato "
+        },
+        {
+            "wrongAnswer3": "Sledgehammer",
+            "question": "what type of leaf is on the Canadian flag?",
+            "correctAnswer": "Maple Leaf",
+            "wrongAnswer1": "Dandelion",
+            "wrongAnswer2": "Brick"
+        },
+        {
+            "wrongAnswer3": "Bob",
+            "question": "What is Iron Man's name?",
+            "correctAnswer": "Tony Stark",
+            "wrongAnswer1": "Tony Stank",
+            "wrongAnswer2": "Strony Tark"
+        },
+        {
+            "wrongAnswer3": "answer",
+            "question": "another question",
+            "correctAnswer": "answer",
+            "wrongAnswer1": "answer",
+            "wrongAnswer2": "anwer"
         }
     ]
 }
