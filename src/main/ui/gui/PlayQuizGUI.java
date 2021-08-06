@@ -3,13 +3,10 @@ package ui.gui;
 import model.MCQuestion;
 import model.Quiz;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
@@ -41,6 +38,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         initializePanels();
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes all the panels and adds them to currentPanel, then shows the start panel
     private void initializePanels() {
         cardLayout = new CardLayout();
         currentPanel = new JPanel(cardLayout);
@@ -56,12 +55,16 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         cardLayout.show(currentPanel, "startPanel");
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes the panel that is shown once the quiz is over
+    //          informs user of how many questions they got correct and displays an image
     private void createEndQuizPanel() {
         endQuizPanel = new JPanel(new BorderLayout());
 
         JLabel endQuizLabel = new JLabel("Your score for the quiz \"" + quiz.getQuizName()
                 + "\" is: " + numCorrect + "/" + quiz.length());
         endQuizLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         JLabel congratulationsImage = new JLabel();
         congratulationsImage.setIcon(new ImageIcon(IMAGE));
         congratulationsImage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -75,9 +78,10 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         endQuizPanel.add(endQuizLabel, BorderLayout.NORTH);
         endQuizPanel.add(congratulationsImage, BorderLayout.CENTER);
         endQuizPanel.add(finishButton, BorderLayout.SOUTH);
-
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes the panel that is shown when user chooses an incorrect answer
     private void createIncorrectPanel() {
         incorrectPanel = new JPanel(new BorderLayout());
 
@@ -90,6 +94,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         incorrectPanel.add(nextButton, BorderLayout.SOUTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes the panel that is shown when user chooses a correct answer
     private void createCorrectPanel() {
         correctPanel = new JPanel(new BorderLayout());
 
@@ -102,6 +108,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         correctPanel.add(nextButton, BorderLayout.SOUTH);
     }
 
+    // EFFECTS: helper method that creates a "next" button that advances the quiz
     private JButton makeNextButton() {
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(this);
@@ -110,6 +117,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         return nextButton;
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes the panel that is shown at the start before the quiz game begins
     private void createStartPanel() {
         startPanel = new JPanel(new BorderLayout());
         JPanel yesNoPanel = new JPanel(new GridLayout(1, 2));
@@ -122,9 +131,13 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
         startPanel.add(label, BorderLayout.CENTER);
         startPanel.add(yesNoPanel, BorderLayout.SOUTH);
-
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears the question panel
+    //          if there are still questions on the quiz, displays the next question
+    //          and four buttons with the question's correct/incorrect answers on them
+    //          otherwise, creates and shows the end quiz panel
     private void runQuiz() {
         questionPanel.removeAll();
         cardLayout.show(currentPanel, "questionPanel");
@@ -142,6 +155,10 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: checks if the user chose the right answer
+    //          if the answer is correct, increments numCorrect and shows the correct panel
+    //          otherwise, shows the incorrect panel
     private void checkCorrectAnswer(int i) {
         currentQuestion++;
         if (i == correctAnswer) {
@@ -150,17 +167,20 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         } else {
             showIncorrectPanel();
         }
-
     }
 
+    // EFFECTS: shows panel that informs user that their choice was incorrect
     private void showIncorrectPanel() {
         cardLayout.show(currentPanel, "incorrectPanel");
     }
 
+    // EFFECTS: shows panel that informs user that their choice was correct
     private void showCorrectPanel() {
         cardLayout.show(currentPanel, "correctPanel");
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays four buttons with the question's correct/incorrect answers on them in a random order
     private void displayAnswerButtons(MCQuestion question) {
         int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
         switch (randomNum) {
@@ -187,6 +207,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes four buttons with the question's correct/incorrect answers on them
     private void makeButtons(String answer1, String answer2, String answer3, String answer4) {
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
 
@@ -198,6 +220,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         questionPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    // EFFECTS: helper method that creates a button and adds it to the specified panel
     private void makeButton(JPanel panel, String buttonName, String actionCommand) {
         JButton button = new JButton(buttonName);
         button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -207,6 +230,10 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     }
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: plays sound when one of the buttons is pressed
+    //          depending on which button is pressed, user can either start the quiz, go back to the quiz editor menu,
+    //          check if their answer was correct, or advance to the next question
     public void actionPerformed(ActionEvent e) {
         quizEditorGUI.playButtonSound();
         switch (e.getActionCommand()) {
@@ -215,7 +242,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
                 runQuiz();
                 break;
             case "No":
-                quizEditorGUI.displayQuizEditorMenu();
+                quizEditorGUI.displayQuizEditorPanel();
                 break;
             case "answer1":
             case "answer2":
@@ -230,9 +257,6 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
             case "Next":
                 runQuiz();
                 break;
-
-
         }
-
     }
 }

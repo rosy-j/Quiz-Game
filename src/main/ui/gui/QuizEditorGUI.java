@@ -40,7 +40,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     private JsonReader jsonReader;
     private Quiz quiz;
 
-    // EFFECTS: constructs a quiz gui and prompts user to make a quiz, then shows the main menu
+    // EFFECTS: constructs a quiz editor gui and prompts user to make a quiz, then shows the main menu
     public QuizEditorGUI() {
         super("Quiz");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -51,7 +51,6 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-
 
         makeQuiz();
         initializePanels();
@@ -68,18 +67,16 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     private void initializePanels() {
         cardLayout = new CardLayout();
         currentPanel = new JPanel(cardLayout);
-
         quizEditorPanel = new JPanel(new BorderLayout());
 
         currentPanel.add("quizEditorPanel", quizEditorPanel);
-        cardLayout.show(currentPanel, "quizEditorPanel");
-
         add(currentPanel);
+        cardLayout.show(currentPanel, "quizEditorPanel");
     }
 
 
     // EFFECTS: displays the quiz editor panel
-    public void displayQuizEditorMenu() {
+    public void displayQuizEditorPanel() {
         cardLayout.show(currentPanel, "quizEditorPanel");
     }
 
@@ -97,7 +94,8 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays all the questions currently on the quiz
+    // EFFECTS: displays panel with all the questions currently on the quiz
+    //          if the user double clicks on a question in the list, question details will be shown
     private void displayQuestionList() {
         JPanel questionListPanel = new JPanel();
         questionListPanel.setBorder(new EmptyBorder(20, 10, 20, 20));
@@ -106,10 +104,8 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         questionList = new JList<>();
         defaultListModel = new DefaultListModel<>();
         questionList.setModel(defaultListModel);
-
         questionList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         questionList.setLayoutOrientation(JList.VERTICAL);
-
         questionList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -120,13 +116,11 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
                 }
             }
         });
-
         JLabel questionListLabel = new JLabel("Questions in quiz:  (Double click to view question details)");
         JScrollPane scrollPane = new JScrollPane(questionList);
 
         questionListPanel.add(questionListLabel, BorderLayout.NORTH);
         questionListPanel.add(scrollPane, BorderLayout.CENTER);
-
         quizEditorPanel.add(questionListPanel, BorderLayout.CENTER);
     }
 
@@ -194,9 +188,9 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
     @Override
     // MODIFIES: this
-    // EFFECTS: plays sound when one of the menu buttons is pressed
-    //          depending on which button is pressed, user can either make a new quiz, add a question,
-    //          remove a question, save the quiz, or load the quiz
+    // EFFECTS: plays sound when one of the buttons is pressed
+    //          depending on which button is pressed, user can either play the quiz, make a new quiz,
+    //          add a question, remove a question, save the quiz, or load the quiz
     public void actionPerformed(ActionEvent e) {
         playButtonSound();
         switch (e.getActionCommand()) {
@@ -223,10 +217,14 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
     }
 
-    // EFFECTS: if the quiz does not have any questions, prompts user to add a question
+    // EFFECTS: if the quiz is null, prompts user to make quiz
+    //          if the quiz does not have any questions, prompts user to add a question
     //          otherwise, starts the quiz
     private void playQuiz() {
-        if (quiz.length() == 0) {
+        if (quiz == null) {
+            JOptionPane.showMessageDialog(null, "Please make a quiz",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (quiz.length() == 0) {
             JOptionPane.showMessageDialog(null, "Please add at least one question to your quiz",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -271,12 +269,16 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         }
     }
 
-    // EFFECTS: saves the quiz to a file if the user chooses yes, then informs the user that save was successful
+    // EFFECTS: if quiz is null, displays error message
+    //          if user chooses yes, saves the quiz to a file, then informs the user that save was successful
     //          if the save was unsuccessful, displays error message
     private void saveQuiz() {
         int userInput = JOptionPane.showConfirmDialog(null, "Save quiz?",
                 "Save", JOptionPane.YES_NO_OPTION);
-        if (userInput == JOptionPane.YES_OPTION) {
+        if (quiz == null) {
+            JOptionPane.showMessageDialog(null, "Could not save quiz, please try again",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (userInput == JOptionPane.YES_OPTION) {
             try {
                 jsonWriter.open();
                 jsonWriter.write(quiz);
@@ -293,7 +295,10 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: adds a question to the quiz
     private void addQuestion() {
-        if (questionText.getText().length() > 0) {
+        if (quiz == null) {
+            JOptionPane.showMessageDialog(null, "Please make a quiz first",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (questionText.getText().length() > 0) {
             MCQuestion mcQuestion = new MCQuestion(questionText.getText());
             mcQuestion.setCorrectAnswer(correctAnswerText.getText());
             mcQuestion.setWrongAnswer1(wrongAnswer1Text.getText());
@@ -313,10 +318,12 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: asks user for quiz name
-    //          makes a new empty quiz with user input as the name
+    //          if input length > 0, makes a new empty quiz with user input as the name
     private void makeQuiz() {
-        String userInput = JOptionPane.showInputDialog("Enter a name for your quiz");
-        quiz = new Quiz(userInput);
+        String userInput = JOptionPane.showInputDialog("Enter a name for your quiz (enter at least one character)");
+        if (userInput != null && (userInput.length() > 0)) {
+            quiz = new Quiz(userInput);
+        }
     }
 
     // EFFECTS: plays button press sound effect
