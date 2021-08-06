@@ -293,20 +293,22 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: adds a question to the quiz
     private void addQuestion() {
-        MCQuestion mcQuestion = new MCQuestion(questionText.getText());
-        mcQuestion.setCorrectAnswer(correctAnswerText.getText());
-        mcQuestion.setWrongAnswer1(wrongAnswer1Text.getText());
-        mcQuestion.setWrongAnswer2(wrongAnswer2Text.getText());
-        mcQuestion.setWrongAnswer3(wrongAnswer3Text.getText());
+        if (questionText.getText().length() > 0) {
+            MCQuestion mcQuestion = new MCQuestion(questionText.getText());
+            mcQuestion.setCorrectAnswer(correctAnswerText.getText());
+            mcQuestion.setWrongAnswer1(wrongAnswer1Text.getText());
+            mcQuestion.setWrongAnswer2(wrongAnswer2Text.getText());
+            mcQuestion.setWrongAnswer3(wrongAnswer3Text.getText());
 
-        this.quiz.addQuestion(mcQuestion);
-        defaultListModel.addElement(mcQuestion.getQuestion());
+            this.quiz.addQuestion(mcQuestion);
+            defaultListModel.addElement(mcQuestion.getQuestion());
 
-        questionText.setText("");
-        correctAnswerText.setText("");
-        wrongAnswer1Text.setText("");
-        wrongAnswer2Text.setText("");
-        wrongAnswer3Text.setText("");
+            questionText.setText("");
+            correctAnswerText.setText("");
+            wrongAnswer1Text.setText("");
+            wrongAnswer2Text.setText("");
+            wrongAnswer3Text.setText("");
+        }
     }
 
     // MODIFIES: this

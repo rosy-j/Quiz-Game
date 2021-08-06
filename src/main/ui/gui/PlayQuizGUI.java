@@ -3,16 +3,20 @@ package ui.gui;
 import model.MCQuestion;
 import model.Quiz;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
  * Represents a quiz game GUI that allows a user to play through their quiz
  */
 public class PlayQuizGUI extends JPanel implements ActionListener {
+    private static final String IMAGE = "./data/congratulations.jpeg";
     private static final int BUTTON_HEIGHT = QuizEditorGUI.HEIGHT / 5;
     private static final int BUTTON_WIDTH = QuizEditorGUI.WIDTH / 2;
 
@@ -22,9 +26,12 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     private JPanel questionPanel;
     private JPanel correctPanel;
     private JPanel incorrectPanel;
+    private JPanel endQuizPanel;
     private QuizEditorGUI quizEditorGUI;
     private Quiz quiz;
     private int correctAnswer;
+    private int currentQuestion;
+    private int numCorrect;
 
     // EFFECTS: constructs a play quiz gui
     public PlayQuizGUI(Quiz quiz, QuizEditorGUI quizEditorGUI) {
@@ -37,17 +44,38 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     private void initializePanels() {
         cardLayout = new CardLayout();
         currentPanel = new JPanel(cardLayout);
+        questionPanel = new JPanel(new BorderLayout());
         createStartPanel();
-        questionPanel = new JPanel();
         createCorrectPanel();
         createIncorrectPanel();
-//        createEndQuizPanel(); //TODO:
         currentPanel.add("startPanel", startPanel);
         currentPanel.add("questionPanel", questionPanel);
         currentPanel.add("correctPanel", correctPanel);
         currentPanel.add("incorrectPanel", incorrectPanel);
         add(currentPanel);
         cardLayout.show(currentPanel, "startPanel");
+    }
+
+    private void createEndQuizPanel() {
+        endQuizPanel = new JPanel(new BorderLayout());
+
+        JLabel endQuizLabel = new JLabel("Your score for the quiz \"" + quiz.getQuizName()
+                + "\" is: " + numCorrect + "/" + quiz.length());
+        endQuizLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel congratulationsImage = new JLabel();
+        congratulationsImage.setIcon(new ImageIcon(IMAGE));
+        congratulationsImage.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JButton finishButton = new JButton("Finish");
+        finishButton.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        endQuizPanel.add(finishButton);
+        finishButton.addActionListener(this);
+        finishButton.setActionCommand("No");
+
+        endQuizPanel.add(endQuizLabel, BorderLayout.NORTH);
+        endQuizPanel.add(congratulationsImage, BorderLayout.CENTER);
+        endQuizPanel.add(finishButton, BorderLayout.SOUTH);
+
     }
 
     private void createIncorrectPanel() {
@@ -58,8 +86,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
         JButton nextButton = makeNextButton();
 
-        correctPanel.add(incorrectLabel, BorderLayout.CENTER);
-        correctPanel.add(nextButton, BorderLayout.SOUTH);
+        incorrectPanel.add(incorrectLabel, BorderLayout.CENTER);
+        incorrectPanel.add(nextButton, BorderLayout.SOUTH);
     }
 
     private void createCorrectPanel() {
@@ -97,19 +125,27 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
     }
 
-    private void startQuiz() {
+    private void runQuiz() {
+        questionPanel.removeAll();
         cardLayout.show(currentPanel, "questionPanel");
-        for (MCQuestion question : quiz.getQuestions()) {
+        if (currentQuestion < quiz.length()) {
+            MCQuestion question = quiz.getQuestions().get(currentQuestion);
             JLabel questionLabel = new JLabel(question.getQuestion());
             questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
             questionPanel.add(questionLabel, BorderLayout.CENTER);
-            nextQuestion(question);
+            displayAnswerButtons(question);
+        } else {
+            createEndQuizPanel();
+            currentPanel.add("endQuizPanel", endQuizPanel);
+            cardLayout.show(currentPanel, "endQuizPanel");
         }
     }
 
 
     private void checkCorrectAnswer(int i) {
+        currentQuestion++;
         if (i == correctAnswer) {
+            numCorrect++;
             showCorrectPanel();
         } else {
             showIncorrectPanel();
@@ -118,16 +154,14 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     }
 
     private void showIncorrectPanel() {
-        questionPanel.removeAll();
         cardLayout.show(currentPanel, "incorrectPanel");
     }
 
     private void showCorrectPanel() {
-        questionPanel.removeAll();
         cardLayout.show(currentPanel, "correctPanel");
     }
 
-    private void nextQuestion(MCQuestion question) {
+    private void displayAnswerButtons(MCQuestion question) {
         int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
         switch (randomNum) {
             case 1:
@@ -177,25 +211,24 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         quizEditorGUI.playButtonSound();
         switch (e.getActionCommand()) {
             case "Yes":
-                startQuiz();
+                currentQuestion = 0;
+                runQuiz();
                 break;
             case "No":
                 quizEditorGUI.displayQuizEditorMenu();
                 break;
             case "answer1":
-                checkCorrectAnswer(1);
-                break;
             case "answer2":
-                checkCorrectAnswer(2);
-                break;
             case "answer3":
-                checkCorrectAnswer(3);
-                break;
             case "answer4":
-                checkCorrectAnswer(4);
+                for (int i = 1; i <= 4; i++) {
+                    if (e.getActionCommand().equals("answer" + i)) {
+                        checkCorrectAnswer(i);
+                    }
+                }
                 break;
             case "Next":
-                cardLayout.show(currentPanel, "questionPanel");
+                runQuiz();
                 break;
 
 
