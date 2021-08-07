@@ -199,7 +199,6 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
                 break;
             case "Make New Quiz":
                 makeQuiz();
-                defaultListModel.clear();
                 break;
             case "Add Question":
                 addQuestion();
@@ -246,7 +245,11 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Please select a question to remove",
                     "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "There are no questions to remove",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     // MODIFIES: this
@@ -323,6 +326,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         String userInput = JOptionPane.showInputDialog("Enter a name for your quiz (enter at least one character)");
         if (userInput != null && (userInput.length() > 0)) {
             quiz = new Quiz(userInput);
+            defaultListModel.clear();
         }
     }
 

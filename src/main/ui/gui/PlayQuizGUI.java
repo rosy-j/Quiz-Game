@@ -13,7 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * Represents a quiz game GUI that allows a user to play through their quiz
  */
 public class PlayQuizGUI extends JPanel implements ActionListener {
-    private static final String IMAGE = "./data/congratulations.jpeg";
+    private static final String CONGRATULATIONS_IMAGE = "./data/congratulations.jpeg";
+    private static final String SAD_FACE_IMAGE = "./data/sadEmoji.png";
+    private static final String PARTY_POPPER_IMAGE = "./data/partyPopper.png";
     private static final int BUTTON_HEIGHT = QuizEditorGUI.HEIGHT / 5;
     private static final int BUTTON_WIDTH = QuizEditorGUI.WIDTH / 2;
 
@@ -57,7 +59,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: makes the panel that is shown once the quiz is over
-    //          informs user of how many questions they got correct and displays an image
+    //          informs user of how many questions they got correct and displays a congratulations image
     private void createEndQuizPanel() {
         endQuizPanel = new JPanel(new BorderLayout());
 
@@ -66,7 +68,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
         endQuizLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel congratulationsImage = new JLabel();
-        congratulationsImage.setIcon(new ImageIcon(IMAGE));
+        congratulationsImage.setIcon(new ImageIcon(CONGRATULATIONS_IMAGE));
         congratulationsImage.setHorizontalAlignment(SwingConstants.CENTER);
 
         JButton finishButton = new JButton("Finish");
@@ -87,10 +89,14 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
         JLabel incorrectLabel = new JLabel("Incorrect!");
         incorrectLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel sadFaceImage = new JLabel();
+        sadFaceImage.setIcon(new ImageIcon(SAD_FACE_IMAGE));
+        sadFaceImage.setHorizontalAlignment(SwingConstants.CENTER);
 
         JButton nextButton = makeNextButton();
 
-        incorrectPanel.add(incorrectLabel, BorderLayout.CENTER);
+        incorrectPanel.add(incorrectLabel, BorderLayout.NORTH);
+        incorrectPanel.add(sadFaceImage, BorderLayout.CENTER);
         incorrectPanel.add(nextButton, BorderLayout.SOUTH);
     }
 
@@ -101,10 +107,14 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
         JLabel correctLabel = new JLabel("Correct!");
         correctLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel partyPopperImage = new JLabel();
+        partyPopperImage.setIcon(new ImageIcon(PARTY_POPPER_IMAGE));
+        partyPopperImage.setHorizontalAlignment(SwingConstants.CENTER);
 
         JButton nextButton = makeNextButton();
 
-        correctPanel.add(correctLabel, BorderLayout.CENTER);
+        correctPanel.add(correctLabel, BorderLayout.NORTH);
+        correctPanel.add(partyPopperImage, BorderLayout.CENTER);
         correctPanel.add(nextButton, BorderLayout.SOUTH);
     }
 
@@ -135,8 +145,8 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: clears the question panel
-    //          if there are still questions on the quiz, displays the next question
-    //          and four buttons with the question's correct/incorrect answers on them
+    //          if there are still questions on the quiz, displays the next question and four buttons with
+    //          the question's correct/incorrect answers on them
     //          otherwise, creates and shows the end quiz panel
     private void runQuiz() {
         questionPanel.removeAll();
