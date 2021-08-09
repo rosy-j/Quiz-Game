@@ -18,6 +18,13 @@ import java.io.IOException;
 
 /*
  * Represents a graphical user interface for making/editing/saving/loading a quiz
+ *
+ * Referenced https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
+ * when implementing mouse listener in displayQuestionList()
+ *
+ * Referenced https://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
+ * when implementing how to play sound in playButtonSound()
+ *
  */
 
 public class QuizEditorGUI extends JFrame implements ActionListener {
@@ -54,9 +61,9 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
         makeQuiz();
         initializePanels();
-        createMenuOptions();
+        createMenuButtons();
         createTextFields();
-        displayQuestionList();
+        createQuestionListPanel();
 
         pack();
         setVisible(true);
@@ -94,9 +101,9 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays panel with all the questions currently on the quiz
+    // EFFECTS: creates panel with all the questions currently on the quiz
     //          if the user double clicks on a question in the list, question details will be shown
-    private void displayQuestionList() {
+    private void createQuestionListPanel() {
         JPanel questionListPanel = new JPanel();
         questionListPanel.setBorder(new EmptyBorder(20, 10, 20, 20));
         questionListPanel.setLayout(new BorderLayout());
@@ -106,6 +113,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         questionList.setModel(defaultListModel);
         questionList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         questionList.setLayoutOrientation(JList.VERTICAL);
+
         questionList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -116,6 +124,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
                 }
             }
         });
+
         JLabel questionListLabel = new JLabel("Questions in quiz:  (Double click to view question details)");
         JScrollPane scrollPane = new JScrollPane(questionList);
 
@@ -162,8 +171,9 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates menu buttons
-    private void createMenuOptions() {
+    // EFFECTS: creates buttons on menu that allows user to choose to play quiz, make a new quiz,
+    //          add a question, remove a question, save the quiz, or load the quiz
+    private void createMenuButtons() {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(0, 1));
 
@@ -236,6 +246,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: removes selected question from the quiz,
     //          if a question isn't selected, show an error message
+    //          if quiz doesn't have any questions or there is no quiz, show an error message
     private void removeQuestion() {
         try {
             int selected = questionList.getSelectedIndex();
@@ -286,12 +297,12 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
                 jsonWriter.open();
                 jsonWriter.write(quiz);
                 jsonWriter.close();
+                JOptionPane.showMessageDialog(null, "Save Successful",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Could not save quiz, please try again",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
-            JOptionPane.showMessageDialog(null, "Save Successful",
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

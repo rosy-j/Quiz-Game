@@ -1,110 +1,110 @@
 {
-  "quizName": "Trivia",
-  "questions": [
-    {
-      "wrongAnswer3": "Gold",
-      "question": "Hg is the chemical symbol of which element?",
-      "correctAnswer": "Mercury",
-      "wrongAnswer1": "Hungary",
-      "wrongAnswer2": "Silver"
-    },
-    {
-      "wrongAnswer3": "Fiftenn pounds",
-      "question": "How much does the Chewbacca costume weigh?",
-      "correctAnswer": "Eight pounds",
-      "wrongAnswer1": "Eighty pounds",
-      "wrongAnswer2": "Five pounds"
-    },
-    {
-      "wrongAnswer3": "Brick",
-      "question": "What leaf is on the Canadian flag?",
-      "correctAnswer": "Maple Leaf",
-      "wrongAnswer1": "Potato",
-      "wrongAnswer2": "Cabbage"
-    },
-    {
-      "wrongAnswer3": "Zero",
-      "question": "Pure water has a pH level of around?",
-      "correctAnswer": "Seven",
-      "wrongAnswer1": "Eight",
-      "wrongAnswer2": "One"
-    },
-    {
-      "wrongAnswer3": "Five minutes",
-      "question": "How long does it take to hard boil an egg?",
-      "correctAnswer": "Seven minutes",
-      "wrongAnswer1": "Six minutes",
-      "wrongAnswer2": "Eight minutes"
-    },
-    {
-      "wrongAnswer3": "Arctic Ocean",
-      "question": "What is the world's largest ocean?",
-      "correctAnswer": "Pacific Ocean",
-      "wrongAnswer1": "Atlantic Ocean",
-      "wrongAnswer2": "Indian Ocean"
-    },
-    {
-      "wrongAnswer3": "Sony Tark",
-      "question": "What is Iron man's name?",
-      "correctAnswer": "Tony Stark",
-      "wrongAnswer1": "Tony Stank",
-      "wrongAnswer2": "Stony Tank"
-    },
-    {
-      "wrongAnswer3": "play moderately",
-      "question": "What does the term \"piano\" mean?",
-      "correctAnswer": "To be played softly",
-      "wrongAnswer1": "play loudly",
-      "wrongAnswer2": "play really loudly"
-    },
-    {
-      "wrongAnswer3": "49",
-      "question": "How many weeks are in a year?",
-      "correctAnswer": "52",
-      "wrongAnswer1": "58",
-      "wrongAnswer2": "42"
-    },
-    {
-      "wrongAnswer3": "food",
-      "question": "What is the meaning of life?",
-      "correctAnswer": "42",
-      "wrongAnswer1": "dogs",
-      "wrongAnswer2": "cats"
-    },
-    {
-      "wrongAnswer3": "Mitochondria",
-      "question": "What part of the atom has no electric charge?",
-      "correctAnswer": "Neutron",
-      "wrongAnswer1": "Proton",
-      "wrongAnswer2": "Electron"
-    },
-    {
-      "wrongAnswer3": "vacuole",
-      "question": "The ____ is the powerhouse of the cell.",
-      "correctAnswer": "mitochondria",
-      "wrongAnswer1": "amygdala",
-      "wrongAnswer2": "the brain"
-    },
-    {
-      "wrongAnswer3": "100",
-      "question": "How many Earths could fit inside the sun?",
-      "correctAnswer": "1.3 million",
-      "wrongAnswer1": "3",
-      "wrongAnswer2": "1,300"
-    },
-    {
-      "wrongAnswer3": "Worried Wholesome Worm",
-      "question": "In a website browser address bar, what does \"www\" stand for?",
-      "correctAnswer": "World Wide Web",
-      "wrongAnswer1": "Waldo's Wonderful World",
-      "wrongAnswer2": "Willy Wonka's Worries"
-    },
-    {
-      "wrongAnswer3": "this one is not the right answer",
-      "question": "Remove this question",
-      "correctAnswer": "this question should be removed",
-      "wrongAnswer1": "don't remove this question",
-      "wrongAnswer2": "don't pick this one"
-    }
-  ]
+    "quizName": "Trivia",
+    "questions": [
+        {
+            "wrongAnswer3": "Gold",
+            "question": "Hg is the chemical symbol of which element?",
+            "correctAnswer": "Mercury",
+            "wrongAnswer1": "Hungary",
+            "wrongAnswer2": "Silver"
+        },
+        {
+            "wrongAnswer3": "Fiftenn pounds",
+            "question": "How much does the Chewbacca costume weigh?",
+            "correctAnswer": "Eight pounds",
+            "wrongAnswer1": "Eighty pounds",
+            "wrongAnswer2": "Five pounds"
+        },
+        {
+            "wrongAnswer3": "Brick",
+            "question": "What leaf is on the Canadian flag?",
+            "correctAnswer": "Maple Leaf",
+            "wrongAnswer1": "Potato",
+            "wrongAnswer2": "Cabbage"
+        },
+        {
+            "wrongAnswer3": "Zero",
+            "question": "Pure water has a pH level of around?",
+            "correctAnswer": "Seven",
+            "wrongAnswer1": "Eight",
+            "wrongAnswer2": "One"
+        },
+        {
+            "wrongAnswer3": "Five minutes",
+            "question": "How long does it take to hard boil an egg?",
+            "correctAnswer": "Seven minutes",
+            "wrongAnswer1": "Six minutes",
+            "wrongAnswer2": "Eight minutes"
+        },
+        {
+            "wrongAnswer3": "Arctic Ocean",
+            "question": "What is the world's largest ocean?",
+            "correctAnswer": "Pacific Ocean",
+            "wrongAnswer1": "Atlantic Ocean",
+            "wrongAnswer2": "Indian Ocean"
+        },
+        {
+            "wrongAnswer3": "Sony Tark",
+            "question": "What is Iron man's name?",
+            "correctAnswer": "Tony Stark",
+            "wrongAnswer1": "Tony Stank",
+            "wrongAnswer2": "Stony Tank"
+        },
+        {
+            "wrongAnswer3": "play moderately",
+            "question": "What does the term \"piano\" mean?",
+            "correctAnswer": "To be played softly",
+            "wrongAnswer1": "play loudly",
+            "wrongAnswer2": "play really loudly"
+        },
+        {
+            "wrongAnswer3": "49",
+            "question": "How many weeks are in a year?",
+            "correctAnswer": "52",
+            "wrongAnswer1": "58",
+            "wrongAnswer2": "42"
+        },
+        {
+            "wrongAnswer3": "food",
+            "question": "What is the meaning of life?",
+            "correctAnswer": "42",
+            "wrongAnswer1": "dogs",
+            "wrongAnswer2": "cats"
+        },
+        {
+            "wrongAnswer3": "Mitochondria",
+            "question": "What part of the atom has no electric charge?",
+            "correctAnswer": "Neutron",
+            "wrongAnswer1": "Proton",
+            "wrongAnswer2": "Electron"
+        },
+        {
+            "wrongAnswer3": "vacuole",
+            "question": "The ____ is the powerhouse of the cell.",
+            "correctAnswer": "mitochondria",
+            "wrongAnswer1": "amygdala",
+            "wrongAnswer2": "the brain"
+        },
+        {
+            "wrongAnswer3": "100",
+            "question": "How many Earths could fit inside the sun?",
+            "correctAnswer": "1.3 million",
+            "wrongAnswer1": "3",
+            "wrongAnswer2": "1,300"
+        },
+        {
+            "wrongAnswer3": "Worried Wholesome Worm",
+            "question": "In a website browser address bar, what does \"www\" stand for?",
+            "correctAnswer": "World Wide Web",
+            "wrongAnswer1": "Waldo's Wonderful World",
+            "wrongAnswer2": "Willy Wonka's Worries"
+        },
+        {
+            "wrongAnswer3": "this one is not the right answer",
+            "question": "Remove this question",
+            "correctAnswer": "this question should be removed",
+            "wrongAnswer1": "don't remove this question",
+            "wrongAnswer2": "don't pick this one"
+        }
+    ]
 }

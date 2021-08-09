@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /*
  * Represents a quiz game GUI that allows a user to play through their quiz
  */
+
 public class PlayQuizGUI extends JPanel implements ActionListener {
     private static final String CONGRATULATIONS_IMAGE = "./data/congratulations.jpeg";
     private static final String SAD_FACE_IMAGE = "./data/sadEmoji.png";
@@ -41,7 +42,7 @@ public class PlayQuizGUI extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: makes all the panels and adds them to currentPanel, then shows the start panel
+    // EFFECTS: makes panels and adds them to currentPanel, then shows the start panel
     private void initializePanels() {
         cardLayout = new CardLayout();
         currentPanel = new JPanel(cardLayout);
