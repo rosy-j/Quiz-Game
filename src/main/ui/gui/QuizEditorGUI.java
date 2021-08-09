@@ -58,6 +58,7 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        defaultListModel = new DefaultListModel<>();
 
         makeQuiz();
         initializePanels();
@@ -109,7 +110,6 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
         questionListPanel.setLayout(new BorderLayout());
 
         questionList = new JList<>();
-        defaultListModel = new DefaultListModel<>();
         questionList.setModel(defaultListModel);
         questionList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         questionList.setLayoutOrientation(JList.VERTICAL);
