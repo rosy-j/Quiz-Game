@@ -28,7 +28,6 @@ public class QuizApp {
     private boolean runQuizApp;
     private String input;
     private Quiz quiz;
-    private MCQuestion question;
     private Scanner userInput;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
@@ -162,7 +161,7 @@ public class QuizApp {
     private void makeQuestion() {
         System.out.println(lineBreak);
         System.out.println("Please enter your question:");
-        question = new MCQuestion(userInput.nextLine());
+        MCQuestion question = new MCQuestion(userInput.nextLine());
         System.out.println("Please enter the correct answer:");
         question.setCorrectAnswer(userInput.nextLine());
         System.out.println("Please enter an incorrect answer:");

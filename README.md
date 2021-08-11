@@ -38,3 +38,10 @@ through the entire quiz.</p>
   testRemoveQuestionOneQuestionNoException(), testRemoveQuestionManyRemoveSomeNoException(),
   testRemoveQuestionRemoveAllNoException(), testRemoveQuestionNotInQuizExceptionExpected(),
   testRemoveQuestionRemoveTwiceExceptionExpected()
+  
+## Phase 4: Task 3
+
+- I would try to reduce coupling by removing the association between PlayQuizGUI and Quiz since PlayQuizGUI already has
+an association with QuizEditorGUI, and QuizEditorGUI has an association with Quiz.
+- I would also split the QuizApp into two classes (like I did with the two GUI classes) to increase cohesion because
+  right now it has two responsibilities: making the quiz, and playing through the quiz.
