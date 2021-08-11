@@ -1,6 +1,7 @@
 package ui;
 
 
+import exceptions.NotInQuizException;
 import model.MCQuestion;
 import model.Quiz;
 import persistence.JsonReader;
@@ -213,7 +214,11 @@ public class QuizApp {
         input = userInput.nextLine();
         switch (input) {
             case "A":
-                doRemoveQuestion();
+                try {
+                    doRemoveQuestion();
+                } catch (NotInQuizException e) {
+                    System.out.println("Question is not in quiz");
+                }
                 break;
             case "B":
                 makeQuestion();
@@ -232,7 +237,7 @@ public class QuizApp {
     // EFFECTS: if quiz does not have questions, prompts user to make quiz
     //          otherwise asks for user input and removes the specified question from quiz if it is found
     //          if the question is not found, go back to the edit quiz menu
-    private void doRemoveQuestion() {
+    private void doRemoveQuestion() throws NotInQuizException {
         if (quiz.length() == 0) {
             System.out.println("There are no questions on this quiz");
             hasMadeQuiz = false;
@@ -275,7 +280,11 @@ public class QuizApp {
         System.out.println("A: Remove another question\nB: Go Back");
         input = userInput.nextLine();
         if (input.equals("A")) {
-            doRemoveQuestion();
+            try {
+                doRemoveQuestion();
+            } catch (NotInQuizException e) {
+                System.out.println("Question is not in quiz");
+            }
         } else if (input.equals("B")) {
             runQuiz();
         } else {

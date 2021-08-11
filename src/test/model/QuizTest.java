@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NotInQuizException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,36 +101,41 @@ public class QuizTest {
     }
 
     @Test
-    // test that removes a question from an empty quiz
-    public void testRemoveQuestionEmptyQuiz() {
-        assertFalse(testQuiz.removeQuestion(testQuestion1));
-        assertFalse(testQuiz.removeQuestion(testQuestion2));
-        assertFalse(testQuiz.removeQuestion(testQuestion3));
-
+    // test that removes a question from an empty quiz, exception is expected
+    public void testRemoveQuestionEmptyQuizExceptionExpected() {
+        try {
+            testQuiz.removeQuestion(testQuestion1);
+            fail("Should have thrown exception");
+        } catch (NotInQuizException e) {
+            // all good
+        }
         assertEquals(0, testQuiz.length());
         assertFalse(testQuiz.isInQuiz(testQuestion1));
-        assertFalse(testQuiz.isInQuiz(testQuestion2));
-        assertFalse(testQuiz.isInQuiz(testQuestion3));
     }
 
     @Test
-    // test that removes the only question on the quiz
-    public void testRemoveQuestionOneQuestion() {
+    // test that removes the only question on the quiz, exception is not expected
+    public void testRemoveQuestionOneQuestionNoException() {
         testQuiz.addQuestion(testQuestion1);
-
-        assertTrue(testQuiz.removeQuestion(testQuestion1));
+        try {
+            testQuiz.removeQuestion(testQuestion1);
+        } catch (NotInQuizException e) {
+            fail("Should not have thrown exception");
+        }
         assertFalse(testQuiz.isInQuiz(testQuestion1));
         assertEquals(0, testQuiz.length());
     }
 
     @Test
-    // test that removes some questions from a quiz with many questions
-    public void testRemoveQuestionManyRemoveSome() {
+    // test that removes some questions from a quiz with many questions, exception is not expected
+    public void testRemoveQuestionManyRemoveSomeNoException() {
         addThreeQuestions(testQuestion1, testQuestion2, testQuestion3);
-
-        assertTrue(testQuiz.removeQuestion(testQuestion2));
-        assertTrue(testQuiz.removeQuestion(testQuestion3));
-
+        try {
+            testQuiz.removeQuestion(testQuestion2);
+            testQuiz.removeQuestion(testQuestion3);
+        } catch (NotInQuizException e) {
+            fail("should not have thrown exception");
+        }
         assertEquals(1, testQuiz.length());
         assertTrue(testQuiz.isInQuiz(testQuestion1));
         assertFalse(testQuiz.isInQuiz(testQuestion2));
@@ -137,14 +143,16 @@ public class QuizTest {
     }
 
     @Test
-    // test that removes all questions from quiz
-    public void testRemoveQuestionRemoveAll() {
+    // test that removes all questions from quiz, exception not expected
+    public void testRemoveQuestionRemoveAllNoException() {
         addThreeQuestions(testQuestion3, testQuestion2, testQuestion1);
-
-        assertTrue(testQuiz.removeQuestion(testQuestion1));
-        assertTrue(testQuiz.removeQuestion(testQuestion2));
-        assertTrue(testQuiz.removeQuestion(testQuestion3));
-
+        try {
+            testQuiz.removeQuestion(testQuestion1);
+            testQuiz.removeQuestion(testQuestion2);
+            testQuiz.removeQuestion(testQuestion3);
+        } catch (NotInQuizException e) {
+            fail("Should not have thrown exception");
+        }
         assertEquals(0, testQuiz.length());
         assertFalse(testQuiz.isInQuiz(testQuestion1));
         assertFalse(testQuiz.isInQuiz(testQuestion2));
@@ -153,27 +161,37 @@ public class QuizTest {
     }
 
     @Test
-    // test that tries to remove a question that's not in quiz
-    public void testRemoveQuestionNotInQuiz() {
+    // test that tries to remove a question that's not in quiz, exception expected
+    public void testRemoveQuestionNotInQuizExceptionExpected() {
         testQuiz.addQuestion(testQuestion1);
         testQuiz.addQuestion(testQuestion3);
-
-        assertFalse(testQuiz.removeQuestion(testQuestion2));
-
+        try {
+            testQuiz.removeQuestion(testQuestion2);
+            fail("should have thrown exception");
+        } catch (NotInQuizException e) {
+            // all good
+        }
         assertEquals(2, testQuiz.length());
         assertTrue(testQuiz.isInQuiz(testQuestion1));
         assertTrue(testQuiz.isInQuiz(testQuestion3));
     }
 
     @Test
-    // test that tries to remove a question twice
-    public void testRemoveQuestionRemoveTwice() {
+    // test that tries to remove a question twice, exception expected
+    public void testRemoveQuestionRemoveTwiceExceptionExpected() {
         testQuiz.addQuestion(testQuestion1);
         testQuiz.addQuestion(testQuestion2);
-
-        assertTrue(testQuiz.removeQuestion(testQuestion2));
-        assertFalse(testQuiz.removeQuestion(testQuestion2));
-
+        try {
+            testQuiz.removeQuestion(testQuestion2);
+        } catch (NotInQuizException e) {
+            fail("should not have thrown exception");
+        }
+        try {
+            testQuiz.removeQuestion(testQuestion2);
+            fail("should have thrown exception");
+        } catch (NotInQuizException e) {
+            // all good
+        }
         assertEquals(1, testQuiz.length());
         assertTrue(testQuiz.isInQuiz(testQuestion1));
         assertFalse(testQuiz.isInQuiz(testQuestion2));

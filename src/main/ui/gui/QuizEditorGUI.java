@@ -1,5 +1,6 @@
 package ui.gui;
 
+import exceptions.NotInQuizException;
 import model.MCQuestion;
 import model.Quiz;
 import persistence.JsonReader;
@@ -258,6 +259,9 @@ public class QuizEditorGUI extends JFrame implements ActionListener {
                     "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "There are no questions to remove",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NotInQuizException e) {
+            JOptionPane.showMessageDialog(null, "Could not find question",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 

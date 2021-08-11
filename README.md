@@ -25,3 +25,16 @@ through the entire quiz.</p>
 - As a user, I want to be able to view all the questions in my quiz
 - As a user, I want to be able to save my quiz (and all of its questions/answers) to a file.
 - As a user, I want to be able to load my quiz (and all of its questions/answers) from a file.
+
+
+## Phase 4: Task 2
+
+<p>I chose to test and design a class in my model package that is robust.</p>
+
+- Class that has a robust design: Quiz
+- Method that has a robust design: removeQuestion(MCQuestion question)
+- Test class that tests the robust design: QuizTest
+- Test methods that test the robust design: testRemoveQuestionEmptyQuizExceptionExpected(), 
+  testRemoveQuestionOneQuestionNoException(), testRemoveQuestionManyRemoveSomeNoException(),
+  testRemoveQuestionRemoveAllNoException(), testRemoveQuestionNotInQuizExceptionExpected(),
+  testRemoveQuestionRemoveTwiceExceptionExpected()

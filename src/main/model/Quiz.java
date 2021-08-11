@@ -1,6 +1,7 @@
 package model;
 
 
+import exceptions.NotInQuizException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -32,14 +33,13 @@ public class Quiz implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: if the multiple choice question is in the quiz, remove it and return true
-    //          otherwise return false
-    public boolean removeQuestion(MCQuestion question) {
+    // EFFECTS: removes the question from the quiz
+    //          if the question isn't in the quiz, throws NotInQuizException
+    public void removeQuestion(MCQuestion question) throws NotInQuizException {
         if (questions.contains(question)) {
             questions.remove(question);
-            return true;
         } else {
-            return false;
+            throw new NotInQuizException();
         }
     }
 
