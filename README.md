@@ -42,6 +42,10 @@ through the entire quiz.</p>
 ## Phase 4: Task 3
 
 - I would try to reduce coupling by removing the association between PlayQuizGUI and Quiz since PlayQuizGUI already has
-an association with QuizEditorGUI, and QuizEditorGUI has an association with Quiz.
+an association with QuizEditorGUI, and QuizEditorGUI has an association with Quiz. Since PlayQuizGUI has an association 
+  with QuizEditorGUI, it would be able to get the information it needed through QuizEditorGUI if I were to introduce 
+  a getter.
 - Although it isn't apparent on the UML diagram, I would also split the QuizApp into two classes to increase cohesion 
-  because right now it has two responsibilities: making the quiz, and playing through the quiz.
+  because right now it has two responsibilities: making/editing the quiz, and playing through the quiz. If I were to 
+  refactor it, I would split it similarly to how the two GUIs are split up. One class would be for making/editing the
+  quiz, while a second class would actually play through the quiz game.
