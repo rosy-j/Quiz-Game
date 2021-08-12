@@ -33,8 +33,8 @@ public class Quiz implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the question from the quiz
-    //          if the question isn't in the quiz, throws NotInQuizException
+    // EFFECTS: if the question is in the quiz, removes the question from the quiz
+    //          otherwise throws NotInQuizException
     public void removeQuestion(MCQuestion question) throws NotInQuizException {
         if (questions.contains(question)) {
             questions.remove(question);
